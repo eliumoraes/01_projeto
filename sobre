@@ -9,5 +9,3 @@ Algumas coisas importantes:
     git status : Ele vai mostrar as modificações realizadas. Concordando com isso, prossegue com os próximos.
     git add -A : Pega todas as modificações e prepara para enviar! Cria um pacote!
     git commit -m "blablabla" : Vai realizar entre as aspas a definição do que está sendo comitado.
-
-
