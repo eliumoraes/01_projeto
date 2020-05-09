@@ -89,8 +89,8 @@ DATABASES = {
         'NAME': '01_projeto',
         'USER': 'assessorpublico',
         'PASSWORD': '2arquiv3',
-        'HOST': 'localhost',
-        'PORT': 5433
+        'HOST': 'localhost'
+        'PORT': 5434
     }
 }
 

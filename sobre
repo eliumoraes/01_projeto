@@ -1,0 +1,13 @@
+Algumas coisas importantes:
+
+1.  Iniciar: 
+
+    git pull : Esse comando realiza o download da última versão que estiver no servidor
+
+2.  Finalizar ou Iniciar outra modificação:
+
+    git status : Ele vai mostrar as modificações realizadas. Concordando com isso, prossegue com os próximos.
+    git add -A : Pega todas as modificações e prepara para enviar! Cria um pacote!
+    git commit -m "blablabla" : Vai realizar entre as aspas a definição do que está sendo comitado.
+
+
