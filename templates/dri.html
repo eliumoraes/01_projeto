@@ -18,18 +18,23 @@
         </div>
 
         <div class="card-body">
+        <!-- BodyIn -->
+
+
             <div class="row">
+            <!-- RowIn -->
+
                 <div class="col-lg-3 border">
-                    <span>Belo Horizonte - Minas Gerais </span>
+                    <span class="align-center">Belo Horizonte - Minas Gerais </span>
                 </div>
                 <div class="col-lg-2 border">
-                    <a class="btn btn-info">
-                      <i class="fas fa-database"></i>
-                      Solicitar 
+                    <a class="btn-sm btn-info">
+                      <i class="fas fa-database align-center"></i>
+                      <span class="align-center">Solicitar</span> 
                     </a>
                 </div>
                 <div class="col-lg-2 border">
-                    <a class="btn btn-success">
+                    <a class="btn-sm btn-success">
                       <i class="fas fa-plus-circle"></i>
                       Atender
                     </a>
@@ -38,13 +43,13 @@
                     <span>25/10/1977 15:45  </span>
                 </div>
                 <div class="col-lg-2 border">
-                    <a class="btn btn-info">
+                    <a class="btn-sm btn-info">
                         <i class="fas fa-cloud-download-alt"></i>
                     </a>
-                    <a class="btn btn-info">
+                    <a class="btn-sm btn-info ml-1">
                         <i class="fas fa-user-tie"></i>
                         </a>
-                        <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" 
+                        <a class="btn-sm btn-info ml-1" data-toggle="collapse" href="#collapseExample" role="button" 
                         aria-expanded="false" aria-controls="collapseExample" style="color: #000;">
                         <i class="fas fa-plus"></i>
                     </a>
@@ -165,14 +170,205 @@
                         </div>
 
                     </div>
-                </div>
+                </div>           
 
+            <!-- /RowFin -->
             </div>
+            
+            {% for adriana in clientes %}
+            <div class="row mt-1">
+            <!-- RowIn -->
+
+                <div class="col-lg-3 border">
+                    <span class="align-center">{{adriana.name}}</span>
+                </div>
+                <div class="col-lg-2 border">
+                    <a class="btn-sm btn-info">
+                      <i class="fas fa-database align-center"></i>
+                      <span class="align-center">Solicitar</span> 
+                    </a>
+                </div>
+                <div class="col-lg-2 border">
+                    <a class="btn-sm btn-success">
+                      <i class="fas fa-plus-circle"></i>
+                      Atender
+                    </a>
+                </div>
+                <div class="col-lg-3 border">
+                    <span>{{adriana.date_created}} </span>
+                </div>
+                <div class="col-lg-2 border">
+                    <a class="btn-sm btn-info">
+                        <i class="fas fa-cloud-download-alt"></i>
+                    </a>
+                    <a class="btn-sm btn-info ml-1">
+                        <i class="fas fa-user-tie"></i>
+                        </a>
+                        <a class="btn-sm btn-info ml-1" data-toggle="collapse" href="#{{adriana.name}}" role="button" 
+                        aria-expanded="false" aria-controls="{{adriana.name}}" style="color: #000;">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </div>
+                
+                 <div class="collapse" id="{{adriana.name}}" style="border: 0;">
+                    <div class="row mt-2">
+                            
+                        <div class="card col-lg-4">
+                        
+                            <div class="card-header">
+                                <h6> Anydesk </h6>
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="input-group pb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Endereço">
+                                </div>
+
+                                <div class="input-group pb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Senha">
+                                </div>
+
+                                <div class="callout callout-info pb-3">
+                                    <h5>Observação:</h5>
+
+                                    <p>There is a problem that we need to fix. A wonderful serenity has taken possession of my entire
+                                        soul,
+                                        like these sweet mornings of spring which I enjoy with my whole heart.
+                                    </p>
+                                </div>
+
+
+                            </div>
+
+                        
+                        </div>
+
+                        <div class="card col-lg-4">
+                        
+                            <div class="card-header">
+                                <h6> Terminal Server </h6>
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="input-group pb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Endereço">
+                                </div>
+
+                                <div class="input-group pb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Senha">
+                                </div>
+
+                                <div class="callout callout-info pb-3">
+                                    <h5>Observação:</h5>
+
+                                    <p>There is a problem that we need to fix. A wonderful serenity has taken possession of my entire
+                                        soul,
+                                        like these sweet mornings of spring which I enjoy with my whole heart.
+                                    </p>
+                                </div>
+
+
+                            </div>
+
+                        
+                        </div>
+
+                        <div class="card col-lg-4">
+                        
+                            <div class="card-header">
+                                <h6> Putty </h6>
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="input-group pb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Endereço">
+                                </div>
+
+                                <div class="input-group pb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Senha">
+                                </div>
+
+                                <div class="callout callout-info pb-3">
+                                    <h5>Observação:</h5>
+
+                                    <p>There is a problem that we need to fix. A wonderful serenity has taken possession of my entire
+                                        soul,
+                                        like these sweet mornings of spring which I enjoy with my whole heart.
+                                    </p>
+                                </div>
+
+
+                            </div>
+
+                        
+                        </div>
+
+                    </div>
+                </div>        
+
+            <!-- /RowFin -->
+            </div>
+            {% endfor %}
+            
+
+            
+
         </div>
+        <!-- /BodyFin -->
     </div>
 
 </div>
 <!-- / Principal -->
+
+<!-- Secundário -->
+
+<div class="row">
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Cliente</th>
+      <th scope="col">Telefone</th>
+      <th scope="col">Data de Cadastro</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for cliente in clientes %}
+    <tr>
+      <td>{{cliente.name}}</td>
+      <td>{{cliente.phone}}</td>
+      <td>{{cliente.date_created}}</td>
+      <td>{{cliente.email}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+
+<!-- / Secundário -->
  
 
  {% endblock content %}

@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path
-from .views import HomePageView, DricaPageView
+from . import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', HomePageView.as_view(), name='home'),
-    path('dri/', DricaPageView.as_view(), name='dri'),
+    
+    #path('', HomePageView.as_view(), name='home'),
+    #path('dri/', DricaPageView.as_view(), name='dri'),
+    path('dri/', views.dricaTeste, name='dri'),
 
 ]
