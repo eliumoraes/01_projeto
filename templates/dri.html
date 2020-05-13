@@ -201,16 +201,13 @@
                     <a class="btn-sm btn-info">
                         <i class="fas fa-cloud-download-alt"></i>
                     </a>
-                    <a class="btn-sm btn-info ml-1">
-                        <i class="fas fa-user-tie"></i>
-                        </a>
-                        <a class="btn-sm btn-info ml-1" data-toggle="collapse" href="#{{adriana.name}}" role="button" 
-                        aria-expanded="false" aria-controls="{{adriana.name}}" style="color: #000;">
+                    <a class="btn-sm btn-info ml-1"><i class="fas fa-user-tie"></i></a>
+                        <a class="btn-sm btn-info ml-1" data-toggle="collapse" href="#{{ adriana.date_created|date:"M" }}{{adriana.div_id}}" role="button" 
+                        aria-expanded="false" aria-controls="{{ adriana.date_created|date:"M" }}{{adriana.div_id}}" style="color: #000;">
                         <i class="fas fa-plus"></i>
                     </a>
                 </div>
-                
-                 <div class="collapse" id="{{adriana.name}}" style="border: 0;">
+                 <div class="collapse" id="{{ adriana.date_created|date:"M" }}{{adriana.div_id}}" style="border: 0;">
                     <div class="row mt-2">
                             
                         <div class="card col-lg-4">
