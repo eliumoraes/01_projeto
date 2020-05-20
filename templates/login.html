@@ -1,0 +1,75 @@
+{% load static %}
+
+{% include "main_head.html" %}
+
+<!-- específica do login-->
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="#"><b>Canivete</b>Suíço</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Efetue login para acessar o sistema</p>
+
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <input type="text" name="username" class="form-control" placeholder="Usuário">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" name="password" class="form-control" placeholder="Senha">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Lembrar
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      
+
+      <p class="mb-1">
+        <a href="forgot-password.html">Esqueci minha senha</a>
+      </p>
+      <p class="mb-0">
+        <a href="#" class="text-center">Registrar um novo usuário</a>
+      </p>
+    </div>
+    <!-- /.login-card-body -->   
+
+  </div>
+
+  <div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h5><i class="icon fas fa-exclamation-triangle"></i> Alerta!</h5>
+    {% for mensagem in messages %}
+      <p> {{mensagem}} </p>
+    {% endfor %}
+  </div>
+
+</div>
+<!-- /.login-box -->
+
+{% include "main_footer.html" %}

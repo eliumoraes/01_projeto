@@ -79,45 +79,36 @@
 
             <div class="container">
             <!-- RowIn -->
-              <div class="row h-50">
-                <div class="col h-100 d-table border">
-                  <div class="align-middle">
-                    <b>Cliente</b>
+              <div class="row">
+                <div class="col border">
+                      <b>Cliente</b>
                   </div>
-                </div>
-
-                <div class="col-lg-2 h-100 d-table border">
-                  <div class="align-middle">
-                    <b>Solicitar</b>
+                  
+                  <div class="col-lg-2 border">
+                      <b>Solicitar</b>
                   </div>
-                </div>
 
-                <div class="col-lg-2 h-100 d-table border">
-                  <div class="align-middle">
-                    <b>Atender</b>
+                  <div class="col-lg-2 border">
+                      <b>Atender</b>
                   </div>
-                </div>
 
-                <div class="col-lg-3 h-100 d-table border">
-                  <div class="align-middle">
-                    <b>Último Backup</b>
+                  <div class="col-lg-3 border">
+                      <b>Último Backup</b>
                   </div>
-                </div>
 
-                <div class="col-lg-2 h-100 d-table border">
-                  <div class="align-middle">
+                  <div class="col-lg-2 border">
+                    
                     <b>Ações</b>
+
                   </div>
-                </div>
               </div>
               <!-- /RowFin -->
 
 
             {% for cliente in clientes %}
-            
-              <div class="row mt-1">
-              <!-- RowIn -->
 
+              <!-- RowIn -->
+              <div class="row mt-1">
                   <div class="col border">
                       <span class="align-center">{{cliente.name}}</span>
                   </div>

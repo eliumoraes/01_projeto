@@ -6,7 +6,9 @@ from . import views
 urlpatterns = [
     
     path('', views.homePage, name='home'),
-    #path('dri/', DricaPageView.as_view(), name='dri'),
+    path('login/', views.loginPage, name='login'),
+    path('logout/', views.logoutUser, name='logout'),
+    path('register/', views.registerUser, name='register'),
     path('dri/', views.dricaTeste, name='dri'),
 
 ]
