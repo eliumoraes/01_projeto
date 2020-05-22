@@ -2,7 +2,7 @@ from django.db import models
 from .forms import CreateUserForm
 from django.contrib.auth.models import User
 import uuid
-import re
+#import re
 
 class Cliente(models.Model):
     name = models.CharField(max_length=100, null=False)

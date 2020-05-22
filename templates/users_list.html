@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block pagetitle2 %}{{pagetitle}}{% endblock pagetitle2 %}
+{% block pagetitle3 %}{{pagetitle}}{% endblock pagetitle3 %}
+{% block navbar %} 
+
+{% include "navbar.html" %}
+{% endblock navbar %}
+
+ {% block sidebar %}
+    {% include "sidebar.html"%}
+ {% endblock sidebar %}
+
+{% block content %}
+
+<div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Usuários:</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+               <table id="users_table_list" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="users_table_list_info">
+                <thead>
+                <tr role="row">
+                  <th class="sorting_asc" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome</th>
+                  <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Sobrenome</th>
+                  <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Usuário</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users  %}
+                <tr role="row" class="{% cycle 'odd' 'even' %}">
+                  <td class="sorting_1" tabindex="0">{{user.first_name}}</td>
+                  <td>{{user.last_name}}</td>
+                  <td>{{user.username}}</td>
+                </tr>                
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr><th rowspan="1" colspan="1">Nome</th><th rowspan="1" colspan="1">Sobrenome</th><th rowspan="1" colspan="1">Usuário</th></tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+{% endblock content %}

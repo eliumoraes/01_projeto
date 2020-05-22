@@ -23,7 +23,7 @@ def registerUser(request):
 
             user = form.cleaned_data.get('username')
             messages.success(request, 'Foi criada a conta para ' + user)
-            return redirect('login')
+            return redirect('users')
     
     context ={'form':form}
     return render(request, 'register.html', context)
@@ -45,6 +45,14 @@ def loginPage(request):
 
     context = {}
     return render(request, 'login.html', context)
+
+@login_required(login_url='login')
+def usersList(request):
+    users = User.objects.all()
+    assetscss = 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css,plugins/datatables-responsive/css/responsive.bootstrap4.min.css'
+    assetsjs ='plugins/datatables/jquery.dataTables.min.js,plugins/datatables-bs4/js/dataTables.bootstrap4.min.js,plugins/datatables-responsive/js/dataTables.responsive.min.js,plugins/datatables-responsive/js/responsive.bootstrap4.min.js'
+    context = {'users':users, 'assetscss':assetscss, 'assetsjs':assetsjs, 'menu_admin':'True', 'menu_userslist':'True'}
+    return render(request, 'users_list.html', context)
     
 @login_required(login_url='login')
 def logoutUser(request):
@@ -75,4 +83,3 @@ def homePage(request):
 
     context = {'clientes':clientes, 'pagetitle':pagetitle}
     return render(request, 'home.html', context)
-

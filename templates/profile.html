@@ -3,6 +3,7 @@
 
 {% block pagetitle2 %}{{pagetitle}}{% endblock pagetitle2 %}
 {% block pagetitle3 %}{{pagetitle}}{% endblock pagetitle3 %}
+
 {% block navbar %} 
 {% comment %} Trazer o navbar e passar os menus que a pessoa pode acessar. {% endcomment %}
 {% include "navbar.html" %}
@@ -36,7 +37,7 @@
         </div>
 
         <div>
-            <img src="{% static userprofile.image.url %}">
+            <img src="/{{ userprofile.image.url }}">
         </div>
 
     </div>
@@ -45,6 +46,5 @@
     </div>
     </div>
 </div>
-
 
 {% endblock content %}
