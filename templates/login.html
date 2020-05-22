@@ -1,6 +1,7 @@
 {% load static %}
 
-{% include "main_head.html" %}
+
+{% include "main_head.html" with assetscss="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css,plugins/toastr/toastr.min.css" %}
 
 <!-- específica do login-->
 <body class="hold-transition login-page">
@@ -61,15 +62,9 @@
 
   </div>
 
-  <div class="alert alert-warning alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-    <h5><i class="icon fas fa-exclamation-triangle"></i> Alerta!</h5>
-    {% for mensagem in messages %}
-      <p> {{mensagem}} </p>
-    {% endfor %}
-  </div>
 
-</div>
 <!-- /.login-box -->
 
-{% include "main_footer.html" %}
+
+
+{% include "main_footer.html" with assetsjs="plugins/sweetalert2/sweetalert2.min.js,plugins/toastr/toastr.min.js"   %}

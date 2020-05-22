@@ -1,5 +1,5 @@
 {% load static %}
-{% include "main_head.html" %}
+{% include "main_head.html" with assetscss="plugins/toastr/toastr.min.css"%}
 
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -62,14 +62,6 @@
           </div>
         </div>
         <div class="row">
-          {% comment %} <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-              <label for="agreeTerms">
-               I agree to the <a href="#">terms</a>
-              </label>
-            </div>
-          </div> {% endcomment %}
           <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">Registrar</button>
@@ -77,11 +69,6 @@
           <!-- /.col -->
         </div>
       </form>
-
-      {{form.errors}}
-
-      
-
       <a href="{% url 'login' %}" class="text-center">Eu já sou um usuário</a>
     </div>
     <!-- /.form-box -->
@@ -89,5 +76,5 @@
 </div>
 <!-- /.register-box -->
 
-{% include "main_footer.html" %}
+{% include "main_footer.html" with assetsjs="plugins/toastr/toastr.min.js" %}
 

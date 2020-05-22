@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 <!-- jQuery -->
 <script src="{% static 'assets/plugins/jquery/jquery.min.js' %}"></script>
 <!-- Bootstrap 4 -->
@@ -7,5 +8,70 @@
 <script src="{% static 'assets/dist/js/adminlte.min.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'assets/dist/js/demo.js' %}"></script>
+
+{% if assetsjs %}
+{% with assetsjs|split:"," as newassets %}
+{% for asset in newassets %}
+<script src="{% static 'assets/' %}{{asset}}"></script>
+{% endfor %}
+{% endwith %}
+{% endif %}
+
+
+
+
+{% if messages %}
+<script type="text/javascript">
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+{% for mensagem in messages %}
+toastr["warning"]("{{mensagem}}", "Erro:")
+{% endfor %}
+</script>
+{% endif %}
+
+{% comment %} Testando... {% endcomment %}
+
+{% if form.errors %}
+<script type="text/javascript">
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+{% for mensagem in form.errors %}
+toastr["warning"]("{{mensagem}}", "Erro:")
+{% endfor %}
+</script>
+{% else %}
+{% endif %}
+
 </body>
 </html>

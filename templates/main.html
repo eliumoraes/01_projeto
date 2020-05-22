@@ -5,14 +5,16 @@
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
+
   <!-- Navbar -->
   {% block navbar %}
-  
   {% endblock navbar %}
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  {% include "sidebar.html" %}
+  {% block sidebar %}  
+  {% endblock sidebar %}
+  <!-- /Main Sidebar Container -->
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -62,5 +64,7 @@
    {% endcomment %}
 </div>
 <!-- ./wrapper -->
+
+
 
 {% include "main_footer.html" %}

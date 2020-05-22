@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .forms import CreateUserForm
+from django.contrib.auth.models import User
 
 
 # class DricaPageView(TemplateView):
@@ -44,10 +45,22 @@ def loginPage(request):
 
     context = {}
     return render(request, 'login.html', context)
-
+    
+@login_required(login_url='login')
 def logoutUser(request):
     logout(request)
     return redirect('login')
+
+@login_required(login_url='login')
+def profilePage(request, user):
+    userid = str(user)
+    try:
+        userprofile = UserProfile.objects.get(user__pk=userid)
+        context = {'pagetitle':'Profile', 'userprofile':userprofile}
+        return render(request, 'profile.html', context)
+    except:
+        context = {'pagetitle':'Erro', 'message':'Parece que não foi encontrado um perfil para esse usuário.'}
+        return render(request, 'error_01.html', context)
 
 @login_required(login_url='login') 
 def dricaTeste(request):
