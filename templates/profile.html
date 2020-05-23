@@ -32,13 +32,13 @@
         </div>
         
         <div class="col-5 text-center">
-            <img src="{% static 'assets/dist/img/128x128.png' %}" alt="" class="img-circle img-fluid">
+            <img src="/{{ userprofile.image.url }}" alt="" class="img-circle img-fluid">
         </div>
         </div>
 
-        <div>
+        {% comment %} <div>
             <img src="/{{ userprofile.image.url }}">
-        </div>
+        </div> {% endcomment %}
 
     </div>
     <div class="card-footer">
