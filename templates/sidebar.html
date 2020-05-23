@@ -45,8 +45,8 @@
             {% endif %}
           {% endblock home %}
 
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="{% if menu_clientes %}nav-item has-treeview menu-open{% else %}nav-item has-treeview{% endif %}">
+            <a href="#" class="{% if menu_clientes %}nav-link active{% else %}nav-link{% endif %}">
               <i class="nav-icon fas fa-palette"></i>
               <p>
                 Clientes
@@ -54,6 +54,13 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+            
+              <li class="nav-item">
+                <a href="{% url 'new_client' %}" class="nav-link">
+                  <i class="{% if menu_clientes_novo %}fas fa-plus-square nav-icon text-danger{% else %}fas fa-plus-square nav-icon{% endif %}"></i>
+                  <p>Adicionar novo</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fas fa-users nav-icon"></i>
@@ -108,7 +115,7 @@
               <p>
                 Admnistração
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">666</span>
+                <span class="badge badge-info right">R$ 100K</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -132,7 +139,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Charts
+                Relatórios
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -161,7 +168,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
-                UI Elements
+                Definições
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -220,7 +227,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Forms
+                Inserções
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>

@@ -13,5 +13,6 @@ urlpatterns = [
     path('profile/<str:user>/', views.profilePage, name='profile'),
     path('dri/', views.dricaTeste, name='dri'),
     path('users/', views.usersList, name='users'),
+    path('new_client/', views.newClient, name='new_client'),
 
 ] 

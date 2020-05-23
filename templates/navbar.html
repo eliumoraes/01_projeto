@@ -9,15 +9,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{% url 'home' %}" class="nav-link">Home</a>
       </li>
-      {% if sobre %}
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{% url 'dri' %}" class="nav-link">Sobre</a>
       </li>
-      {% else %}
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="btn btn-danger">--- SEM O MENU SOBRE ---</a>
-      </li>
-      {% endif %}  
   
 
     </ul>
