@@ -21,30 +21,24 @@
         </div>
       </div>
 
+      {% comment %}
+      has-treeview
+      {% if #### %}nav-item menu-open{% else %}nav-item{% endif %}
+      {% if #### %}nav-item has-treeview menu-open{% else %}nav-item has-treeview{% endif %}
+      {% if #### %}nav-link active{% else %}nav-link{% endif %}
+      {% endcomment %}
+
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          
-          {% block home %}
-            {% if home %}
-          <li class="nav-item menu-open">
-            <a href="{% url 'home' %}" class="nav-link active">
+          <li class="{% if home %}nav-item menu-open{% else %}nav-item{% endif %}">
+            <a href="{% url 'home' %}" class="{% if home %}nav-link active{% else %}nav-link{% endif %}">
               <i class="nav-icon fas fa-grip-horizontal"></i>
               Dashboard
             </a>
-          </li>            
-            {% else %}
-          <li class="nav-item">
-          <a href="{% url 'home' %}" class="nav-link">
-            <i class="nav-icon fas fa-grip-horizontal"></i>
-            Dashboard
-          </a>
-            </li>
-            {% endif %}
-          {% endblock home %}
-
+          </li>
           <li class="{% if menu_clientes %}nav-item has-treeview menu-open{% else %}nav-item has-treeview{% endif %}">
             <a href="#" class="{% if menu_clientes %}nav-link active{% else %}nav-link{% endif %}">
               <i class="nav-icon fas fa-palette"></i>
@@ -54,12 +48,28 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            
-              <li class="nav-item">
-                <a href="{% url 'new_client' %}" class="nav-link">
-                  <i class="{% if menu_clientes_novo %}fas fa-plus-square nav-icon text-danger{% else %}fas fa-plus-square nav-icon{% endif %}"></i>
-                  <p>Adicionar novo</p>
+              <li class="{% if menu_cadastros %}nav-item has-treeview menu-open{% else %}nav-item has-treeview{% endif %}">
+                <a href="#" class="{% if menu_cadastros %}nav-link active{% else %}nav-link{% endif %}">
+                  <i class="{% if menu_cadastros %}fab fa-whmcs nav-icon text-info{% else %}fab fa-whmcs nav-icon{% endif %}"></i>
+                  <p>
+                    Cadastros
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{% url 'new_client' %}" class="{% if menu_clientes_novo %}nav-link bg-teal{% else %}nav-link{% endif %}">
+                      <i class="{% if menu_clientes_novo %}fab fa-jenkins nav-icon text-dark{% else %}fab fa-jenkins nav-icon{% endif %}"></i>
+                      <p>Cliente</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'new_client_category' %}" class="{% if menu_clientes_novo_tipo %}nav-link bg-teal{% else %}nav-link{% endif %}">
+                      <i class="{% if menu_clientes_novo_tipo %}fas fa-paper-plane nav-icon text-dark{% else %}fas fa-paper-plane nav-icon{% endif %}"></i>
+                      <p>Categoria</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -83,10 +93,6 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    {% comment %} <a href="#" class="nav-link">
-                      <i class="nav-icon far fa-circle text-danger"></i>
-                      <p class="text">Important</p>
-                    </a> {% endcomment %}
                     <a href="#" class="nav-link">
                       <i class="far fa-dot-circle nav-icon text-danger"></i>
                       <p class="text">Araçatuba</p>
@@ -120,15 +126,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'register' %}" class="nav-link">
-                  <i class="fas fa-user-plus nav-icon"></i>
+                <a href="{% url 'register2' %}" class="{% if menu_newuser %}nav-link active{% else %}nav-link{% endif %}">
+                  <i class="{% if menu_newuser %}fas fa-user-plus nav-icon text-info{% else %}fas fa-user-plus nav-icon{% endif %}"></i>
                   <p>Registrar novo usuário</p>
                 </a>
               </li>
 
               <li class="nav-item">               
-                <a href="{% url 'users' %}" class="nav-link">
-                  <i class="{% if menu_userslist %}fas fa-users nav-icon text-danger{% else %}fas fa-users nav-icon{% endif %}"></i>
+                <a href="{% url 'users' %}" class="{% if menu_userslist %}nav-link active{% else %}nav-link{% endif %}">
+                  <i class="{% if menu_userslist %}fas fa-users nav-icon text-info{% else %}fas fa-users nav-icon{% endif %}"></i>
                   <p>Usuários</p>
                 </a>
               </li>

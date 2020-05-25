@@ -26,46 +26,49 @@ email {% endcomment %}
 
     <div class="card-body">
 
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+          </div>
+          <input name="client_name" type="text" class="form-control" placeholder="Nome do cliente">
         </div>
-        <input type="text" class="form-control" placeholder="Nome do cliente">
-      </div>
 
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-at"></i></span>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-at"></i></span>
+          </div>
+          <input name="client_email" type="text" class="form-control" placeholder="Email">
         </div>
-        <input type="text" class="form-control" placeholder="Email">
-      </div>
 
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-phone"></i></span>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+          </div>
+          <input name="client_phone" type="text" class="form-control telefone" />
+        </div> 
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
+          </div>
+          <select name="client_type" class="custom-select" id="client_type">
+            <option value = "0" selected>Saúde</option>
+            <option value="1">Social</option>
+            <option value="2">Educação</option>
+            <option value="3">YabadabadOooo</option>
+          </select>
         </div>
-        <input type="text" class="form-control telefone" />
-      </div>
 
-      <div class="form-group mt-3" data-select2-id="39">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
-        
-
-        <select class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
-          
-          <option selected="selected" data-select2-id="19">Saúde</option>
-          <option data-select2-id="41">Educação</option>
-          <option data-select2-id="42">Social</option>
-          <option data-select2-id="43">Outro tipo</option>
-          <option data-select2-id="44">Militar</option>
-          <option data-select2-id="45">Administrativo</option>
-          <option data-select2-id="46">Especial</option>
-        </select>
+        <div class="float-right">
+          <button type="submit" class="btn btn-block bg-gradient-primary">Adicionar</button>
         </div>
-      </div>
 
-
+        <div class="float-left">
+          <a href="{% url 'home'%}" class="btn btn-block bg-gradient-secondary">Cancelar</a>
+        </div>
+      </form>
     </div>
     <!-- /.card-body -->
 </div>

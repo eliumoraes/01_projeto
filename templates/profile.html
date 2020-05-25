@@ -1,5 +1,6 @@
 {% extends "main.html" %}
 {% load static %}
+{% load custom_filters %}
 
 {% block pagetitle2 %}{{pagetitle}}{% endblock pagetitle2 %}
 {% block pagetitle3 %}{{pagetitle}}{% endblock pagetitle3 %}
@@ -27,7 +28,7 @@
             <p class="text-muted text-sm"><b>Sobre: </b> {{userprofile.description}} </p>
             <ul class="ml-4 mb-0 fa-ul text-muted">
             <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Endereço: {{userprofile.address}}</li>
-            <li class="small mt-2"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Fone: {{userprofile.phone}}</li>
+            <li class="small mt-2"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Fone: {{ userprofile.phone|telefone }}</li>
             </ul>
         </div>
         

@@ -39,7 +39,7 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 {% for mensagem in messages %}
-toastr["warning"]("{{mensagem}}", "Erro:")
+toastr["{% if mensagem.tags == 'success' %}success{% else %}warning{% endif %}"]("{{mensagem}}", "{% if mensagem.tags == 'success' %}Sucesso: {% else %}Erro: {% endif %}")
 {% endfor %}
 </script>
 {% endif %}
@@ -56,7 +56,7 @@ toastr.options = {
   "onclick": null,
   "showDuration": "300",
   "hideDuration": "1000",
-  "timeOut": "5000",
+  "timeOut": "9000",
   "extendedTimeOut": "1000",
   "showEasing": "swing",
   "hideEasing": "linear",
@@ -64,7 +64,7 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 {% for mensagem in form.errors %}
-toastr["warning"]("{{mensagem}}", "Erro:")
+toastr["{% if mensagem.tags == 'success' %}success{% else %}warning{% endif %}"]("{{mensagem}}", "{% if mensagem.tags == 'success' %}Sucesso: {% else %}Erro: {% endif %}")
 {% endfor %}
 </script>
 {% else %}

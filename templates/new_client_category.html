@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block pagetitle2 %}{{pagetitle}}{% endblock pagetitle2 %}
+{% block pagetitle3 %}{{pagetitle}}{% endblock pagetitle3 %}
+
+{% block navbar %}
+   {% include "navbar.html" %}
+{% endblock navbar %}
+
+ {% block sidebar %}
+    {% include "sidebar.html"%}
+ {% endblock sidebar %}
+
+{% block content %}
+
+<div class="card">
+   <div class="card-header">
+      <h3 class="card-title">Adicionar novo tipo</h3>
+   </div>
+   <div class="card-body">
+      <form action="" method="POST">
+         {% csrf_token %}
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-font"></i></span>
+            </div>
+            <input name="client_category_name" type="text" class="form-control" placeholder="Nome da categoria">
+         </div>
+         <div class="input-group mb-1">
+            <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-image"></i></span>
+            </div>
+            <input name="client_category_icon" type="text" class="form-control" placeholder="Ícone. Ex.: fas fa-exclamation">          
+         </div>
+         <div mb-3>
+            <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank">Escolha aqui seu ícone</a>
+         </div>
+         <div class="col-4 offset-8">
+            <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+         </div>
+      </form>
+   </div>
+   <div class="card-footer">
+   </div>
+</div>
+
+
+
+
+{% endblock content %}

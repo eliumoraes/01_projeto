@@ -78,6 +78,7 @@
 <div class=row>
 <!-- Principal -->
 
+<div class="container-fluid">
     <div class="card col-lg-12">
         <div class="card-header">
         <h3> Lista de clientes </h3>
@@ -89,23 +90,23 @@
             <div class="container">
             <!-- RowIn -->
               <div class="row">
-                <div class="col border">
+                <div class="col border-bottom pb-1">
                       <b>Cliente</b>
                   </div>
                   
-                  <div class="col-lg-2 border">
+                  <div class="col-lg-2 border-bottom pb-1">
                       <b>Solicitar</b>
                   </div>
 
-                  <div class="col-lg-2 border">
+                  <div class="col-lg-2 border-bottom pb-1">
                       <b>Atender</b>
                   </div>
 
-                  <div class="col-lg-3 border">
+                  <div class="col-lg-3 border-bottom pb-1">
                       <b>Último Backup</b>
                   </div>
 
-                  <div class="col-lg-2 border">
+                  <div class="col-lg-2 border-bottom pb-1">
                     
                     <b>Ações</b>
 
@@ -118,29 +119,29 @@
 
               <!-- RowIn -->
               <div class="row mt-1">
-                  <div class="col border">
+                  <div class="col border-bottom pb-1">
                       <span class="align-center">{{cliente.name}}</span>
                   </div>
                   
-                  <div class="col-lg-2 border">
+                  <div class="col-lg-2 border-bottom pb-1">
                       <a class="btn-sm btn-info">
                         <i class="fas fa-database align-center"></i>
                         <span class="align-center">Solicitar</span> 
                       </a>
                   </div>
 
-                  <div class="col-lg-2 border">
+                  <div class="col-lg-2 border-bottom pb-1">
                       <a class="btn-sm btn-success">
                         <i class="fas fa-plus-circle"></i>
                         Atender
                       </a>
                   </div>
 
-                  <div class="col-lg-3 border">
+                  <div class="col-lg-3 border-bottom pb-1">
                       <span>{{cliente.date_created|date:"d/m/Y h:i:s"}} </span>
                   </div>
 
-                  <div class="col-lg-2 border">
+                  <div class="col-lg-2 border-bottom pb-1">
                     
                     <a class="btn-sm btn-info">
                       <i class="fas fa-cloud-download-alt"></i>
@@ -160,6 +161,8 @@
                     </a>
 
                   </div>
+
+                  <div class="container-fluid">
 
                   <div class="collapse" id="{{ cliente.date_created|date:"M" }}{{cliente.div_id}}" style="border: 0;">
                       <div class="row mt-2">
@@ -285,6 +288,8 @@
                       </div>
                   </div>        
 
+                  </div>
+
               <!-- /RowFin -->
               </div>
             
@@ -296,6 +301,7 @@
         </div>
         <!-- /BodyFin -->
     </div>
+</div>
 
 </div>
 <!-- / Principal -->

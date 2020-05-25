@@ -9,7 +9,7 @@ class Cliente(models.Model):
     phone = models.CharField(max_length=12, null=False)
     email = models.CharField(max_length=100, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    div_id = models.UUIDField(default=uuid.uuid4, editable=True)
+    div_id = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
         return self.name
@@ -30,3 +30,10 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return '[' +str(self.id) +'] ' + self.user.first_name + ' ' + self.user.last_name
+
+class ClientCategory(models.Model):
+    name = models.CharField(max_length=30, blank=False, null=False, unique=True)
+    icon = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return '[' + str(self.id) +'] ' + self.name
