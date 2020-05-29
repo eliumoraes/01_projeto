@@ -8,3 +8,4 @@ class ClienteAdmin(admin.ModelAdmin):
 admin.site.register(UserRole)
 admin.site.register(UserProfile)
 admin.site.register(ClientCategory)
+admin.site.register(ClientCategoryRelation)

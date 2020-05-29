@@ -15,6 +15,18 @@ import re
 # class DricaPageView(TemplateView):
 #     template_name = 'dri.html'
 
+def mainMenu():
+    clientCategory = ClientCategory.objects.all()
+    listaMaior = []
+    listaMenor = []
+    for cat in clientCategory:
+        listaMenor = [[cat.name, cat.icon]]
+        listaMenor.extend(ClientCategoryRelation.objects.filter(categorie=cat))
+        listaMaior.append(listaMenor)
+    
+    listaMaior.sort()
+    return listaMaior
+
 def registerUser(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -52,9 +64,16 @@ def loginPage(request):
         context = {}
         return render(request, 'login.html', context)
 
+    
+@login_required(login_url='login')
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
 @login_required(login_url='login')
 def approvedRegisterUser(request):
     form = CreateUserForm()
+    categories = ClientCategory.objects.all()
 
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -69,13 +88,16 @@ def approvedRegisterUser(request):
         'form':form, 
         'menu_admin':'True', 
         'menu_newuser':'True',
-        'pagetitle':'Inserir novo usuário'
+        'pagetitle':'Inserir novo usuário',
+        'categories':categories,
+        'menu':mainMenu,
         }
     return render(request, 'register_approved.html', context)
 
 @login_required(login_url='login')
 def usersList(request):
     users = User.objects.all()
+    categories = ClientCategory.objects.all()
     data_tables = 'True'
 
     # Meus CSS's
@@ -89,48 +111,76 @@ def usersList(request):
     +'plugins/datatables-responsive/js/responsive.bootstrap4.min.js,'
     +'dist/js/data_tables_language.js')
 
-    context = {'users':users, 'assetscss':assetscss, 
-    'assetsjs':assetsjs, 'menu_admin':'True', 
-    'menu_userslist':'True', 
-    'data_tables':data_tables,
-    'pagetitle':'Lista de usuários'}
+    context = {
+        'users':users, 
+        'assetscss':assetscss, 
+        'assetsjs':assetsjs, 
+        'menu_admin':'True', 
+        'menu_userslist':'True', 
+        'data_tables':data_tables,
+        'pagetitle':'Lista de usuários',
+        'categories':categories,
+        'menu':mainMenu(),
+    }
     return render(request, 'users_list.html', context)
-    
-@login_required(login_url='login')
-def logoutUser(request):
-    logout(request)
-    return redirect('login')
+
 
 @login_required(login_url='login')
 def profilePage(request, user):
     userid = str(user)
+    categories = ClientCategory.objects.all()
+
     try:
         assetsjs = ('plugins/inputmask/min/jquery.inputmask.bundle.min.js,'
         +'dist/js/personal_masks.js')
 
         userprofile = UserProfile.objects.get(user__pk=userid)
-        context = {'pagetitle':'Perfil', 'userprofile':userprofile, 'assetsjs':assetsjs}
+        context = {
+            'menu':mainMenu,
+            'pagetitle':'Perfil', 
+            'userprofile':userprofile, 
+            'assetsjs':assetsjs,
+            'categories':categories
+            }
         return render(request, 'profile.html', context)
     except:
-        context = {'pagetitle':'Erro', 'message':'Parece que não foi encontrado um perfil para esse usuário.'}
+        context = {
+            'menu':mainMenu,
+            'pagetitle':'Erro', 
+            'message':'Parece que não foi encontrado um perfil para esse usuário.',
+            'categories':categories}
         return render(request, 'error_01.html', context)
 
 @login_required(login_url='login') 
 def dricaTeste(request):
+    categories = ClientCategory.objects.all()
     clientes = Cliente.objects.all()
-    context = {'clientes':clientes, 'pagetitle':'DricaTeste'}
+    context = {
+        'menu':mainMenu,
+        'clientes':clientes, 
+        'pagetitle':'DricaTeste',
+        'categories':categories,
+        }
     return render(request, 'dri.html', context)
 
 @login_required(login_url='login') 
 def homePage(request):
     clientes = Cliente.objects.all()
+    categories = ClientCategory.objects.all()
     pagetitle = 'Dashboard'
 
-    context = {'clientes':clientes, 'pagetitle':pagetitle}
+    context = {
+        'menu':mainMenu,
+        'clientes':clientes, 
+        'pagetitle':pagetitle,
+        'categories':categories,
+        }
     return render(request, 'home.html', context)
 
 @login_required(login_url='login')
 def newClient(request):
+    categories = ClientCategory.objects.all()
+
     if request.POST:
         Cliente.objects.create(
             name = request.POST['client_name'],
@@ -142,16 +192,19 @@ def newClient(request):
     +'dist/js/personal_masks.js')
 
     context = {
+        'menu':mainMenu,
         'pagetitle':'Novo cliente', 
         'assetsjs':assetsjs,
         'menu_clientes':'True',
         'menu_clientes_novo':'True',
-        'menu_cadastros':'True'
+        'menu_cadastros':'True',
+        'categories':categories,
     }
     return render(request, 'new_client.html', context)
 
 @login_required(login_url='login')
 def newClientCategory(request):
+    categories = ClientCategory.objects.all()
     if request.POST:
         ClientCategory.objects.create(
             name = request.POST['client_category_name'],
@@ -159,10 +212,43 @@ def newClientCategory(request):
         )
 
     context = {
+        'menu':mainMenu,
         'menu_clientes':'True',
         'menu_cadastros':'True',
         'menu_clientes_novo_tipo': 'True',
         'pagetitle':'Categoria de cliente',
-        
+        'categories':categories
         }
     return render(request, 'new_client_category.html', context)
+
+@login_required(login_url='login')
+def clientPage(request, client_id, client_cat):
+    cliente = str(client_id)
+    categorie = str(client_cat)
+    categories = ClientCategory.objects.all()
+    clientProfile = ClientCategoryRelation.objects.get(categorie__pk=categorie, client__pk=cliente)
+    pagetitle = clientProfile.client.name + ' ' + clientProfile.categorie.name
+
+    # Meus CSS's
+    assetscss = ('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css,'
+    +'plugins/datatables-responsive/css/responsive.bootstrap4.min.css')
+
+    # Meus JS's
+    assetsjs =('plugins/datatables/jquery.dataTables.min.js,' 
+    +'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js,'
+    +'plugins/datatables-responsive/js/dataTables.responsive.min.js,'
+    +'plugins/datatables-responsive/js/responsive.bootstrap4.min.js,'
+    +'dist/js/data_tables_language.js')
+
+    context = {
+        'menu':mainMenu,
+        'categories':categories,
+        'pagetitle':pagetitle,
+        'clientProfile':clientProfile,
+        'assetscss':assetscss, 
+        'assetsjs':assetsjs, 
+    }
+
+    return render(request, 'client_view.html', context)
+
+    

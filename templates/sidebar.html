@@ -71,6 +71,46 @@
                   </li>
                 </ul>
               </li>
+
+              {% for categoria in menu %}              
+              {% for item in categoria %}
+
+              {% if forloop.first %}
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="{{item.1}} nav-icon"></i>
+                  <p>
+                    {{item.0}}
+                    <i class="right fas {% if forloop.revcounter >= 2 %}fa-angle-left{% endif %}"></i>
+                  </p>
+                </a>
+                {% endif %}
+
+                {% if forloop.counter == 2 %}
+                <ul class="nav nav-treeview">
+                {% endif %}
+
+                {% if not forloop.first %}
+                  <li class="nav-item">
+                    <a href="{% url 'client' item.client.id item.categorie.id %}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p class="text">{{item.client.name}}</p>
+                    </a>
+                  </li>
+                {% endif %}
+                {% if forloop.last and forloop.counter >= 2 %}
+                </ul>               
+              </li>
+              
+              {% else %}
+              {% if forloop.last  %}
+              </li>
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+              {% endfor %}
+
+              {% comment %} 
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fas fa-users nav-icon"></i>
@@ -110,8 +150,8 @@
                       <p>Caiuá</p>
                     </a>
                   </li>
-                </ul>                
-              </li>
+                </ul>                 
+              </li>{% endcomment %}
             </ul>
           </li>
           <li class="{% if menu_admin %}nav-item has-treeview menu-open{% else %}nav-item has-treeview{% endif %}">

@@ -37,3 +37,18 @@ class ClientCategory(models.Model):
     
     def __str__(self):
         return '[' + str(self.id) +'] ' + self.name
+
+class ClientCategoryRelation(models.Model):
+    categorie = models.ForeignKey(ClientCategory, null=True, on_delete=models.SET_NULL)
+    client = models.ForeignKey(Cliente, null=True, on_delete=models.SET_NULL)
+    url = models.CharField(max_length=150, null=True, blank=True)
+    urlcentral = models.CharField(max_length=150, null=True, blank=True)
+
+    def __str__(self):
+        return ('[' 
+        + str(self.id) 
+        + '] ' 
+        + self.client.name 
+        + ' (' 
+        + self.categorie.name
+        + ')')

@@ -1,0 +1,240 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block pagetitle2 %}{{pagetitle}}{% endblock pagetitle2 %}
+{% block pagetitle3 %}{{pagetitle}}{% endblock pagetitle3 %}
+
+{% block navbar %}
+   {% include "navbar.html" %}
+{% endblock navbar %}
+
+ {% block sidebar %}
+    {% include "sidebar.html"%}
+ {% endblock sidebar %}
+
+{% block content %}
+
+   {% comment %} <div class="card">
+      <div class="card-title">
+         <h3 class="card-title">{{clientProfile.client.name}}</h3>
+      </div>
+   </div> {% endcomment %}
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-lg-3 col-sm-12 col-md-3">
+         <!-- small card -->
+         <div class="small-box bg-info">
+            <div class="inner">
+               <h3>150</h3>
+
+               <p>Solicitações totais</p>
+            </div>
+            <div class="icon">
+               <i class="far fa-heart"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+               Visualizar <i class="fas fa-arrow-circle-right"></i>
+            </a>
+         </div>
+      </div>
+      <div class="col-lg-3 col-sm-12 col-md-3">
+               <!-- small card -->
+               <div class="small-box bg-warning">
+               <div class="inner">
+                  <h3>44</h3>
+
+                  <p>Solicitações pendentes</p>
+               </div>
+               <div class="icon">
+                  <i class="fas fa-heartbeat"></i>
+               </div>
+               <a href="#" class="small-box-footer">
+                  Visualizar <i class="fas fa-arrow-circle-right"></i>
+               </a>
+               </div>
+      </div>
+      <div class="col-lg-3 col-sm-12 col-md-3">
+         <!-- small card -->
+         <div class="small-box bg-success">
+            <div class="inner">
+               <h3>106</h3>
+
+               <p>Solicitações atendidas</p>
+            </div>
+            <div class="icon">
+               <i class="fas fa-heart"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+               Visualizar <i class="fas fa-arrow-circle-right"></i>
+            </a>
+         </div>
+      </div>
+      <div class="col-lg-3 col-sm-12 col-md-3">
+         <!-- small card -->
+         <div class="small-box bg-secondary">
+            <div class="inner">
+               <h3>V 4.9.78</h3>
+
+               <p>Versao do sistema</p>
+            </div>
+            <div class="icon">
+               <i class="fas fa-parachute-box"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+               Atualizar <i class="fas fa-cloud-upload-alt"></i>
+            </a>
+         </div>
+      </div>
+   </div>
+   <!-- Principal -->
+
+   <div class="row align-items-center border-bottom border-top pb-1 pt-1">
+      <h5 class="col block" style="margin-bottom: 0px;">
+         Backup
+      </h5>
+      <div class="col">
+         <a class="btn btn-info btn-block">
+         <i class="fas fa-database"></i>
+         <span class="align-center">Solicitar</span> 
+         </a>
+      </div>
+      <div class="col">
+         <a class="btn btn-success btn-block">
+            <i class="fas fa-plus-circle block"></i>
+            Atender
+         </a>
+      </div>
+      {% comment %} <div class="col mt-lg-0 mt-md-0 mt-1 col-lg-3 col-md-3 col-sm-12"> {% endcomment %}
+      <div class="col-12 col-lg-3 col-md-3 mt-1 mt-md-0 mt-lg-0">
+         <div class="input-group block">
+            <input type="text" class="form-control" value="C:\Minha pasta\Qualquer coisa">
+            <div class="input-group-append">
+               <a href="#" title="Copiar" class="btn block border-top border-right border-bottom">
+               <i class="fas fa-check"></i>
+               </a>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   {% comment %} 
+      <div class="card-body">
+         <table id="users_table_list" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="users_table_list_info">
+            <thead>
+            <tr role="row">
+            <th class="sorting_asc" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Data</th>
+            <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Versão</th>
+            <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Solicitante</th>
+            <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Atendente</th>
+            <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            
+            <tr role="row" class="{% cycle 'odd' 'even' %}">
+            <td class="sorting_1" tabindex="0">10/10/2020</td>
+            <td>9.44</td>
+            <td>Pessoa qualquer</td>
+            <td>Qualquer pessoa</td>       
+            <td>Finalizado</td>             
+            </tr>                
+            
+            </tbody>
+            <tfoot>
+            <tr>
+            <th rowspan="1" colspan="1">Data</th>
+            <th rowspan="1" colspan="1">Versão</th>
+            <th rowspan="1" colspan="1">Solicitante</th>
+            <th rowspan="1" colspan="1">Atendente</th>
+            <th rowspan="1" colspan="1">Status</th>
+            </tr>
+            </tfoot>
+         </table>
+      <div> 
+   {% endcomment %}
+
+   <div class="row mt-1">
+      <div class="col-12">
+         <!-- Custom Tabs -->
+         <div class="card">
+            <div class="card-header d-flex p-0">
+               <h3 class="card-title p-3">Resumo do cliente</h3>
+               <ul class="nav nav-pills ml-auto p-2">
+                  <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Backup</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Serviços</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Atualizações</a></li>
+                  {% comment %} 
+                  <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        Dropdown
+                        <span class="caret"></span>
+                     </a>
+                     <div class="dropdown-menu" style="">
+                        <a class="dropdown-item" tabindex="-1" href="#">Action</a>
+                        <a class="dropdown-item" tabindex="-1" href="#">Another action</a>
+                        <a class="dropdown-item" tabindex="-1" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" tabindex="-1" href="#">Separated link</a>
+                     </div>
+                  </li> 
+                  {% endcomment %}
+               </ul>
+            </div><!-- /.card-header -->
+
+            <div class="card-body">
+               <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1">
+                     <table id="users_table_list" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="users_table_list_info">
+                        <thead>
+                        <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Data</th>
+                        <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Versão</th>
+                        <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Solicitante</th>
+                        <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Atendente</th>
+                        <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+                        <tr role="row" class="{% cycle 'odd' 'even' %}">
+                        <td class="sorting_1" tabindex="0">10/10/2020</td>
+                        <td>9.44</td>
+                        <td>Pessoa qualquer</td>
+                        <td>Qualquer pessoa</td>       
+                        <td>Finalizado</td>             
+                        </tr>                
+                        
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                        <th rowspan="1" colspan="1">Data</th>
+                        <th rowspan="1" colspan="1">Versão</th>
+                        <th rowspan="1" colspan="1">Solicitante</th>
+                        <th rowspan="1" colspan="1">Atendente</th>
+                        <th rowspan="1" colspan="1">Status</th>
+                        </tr>
+                        </tfoot>
+                     </table>
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_2">
+                     {% lorem 5 p %}
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_3">
+                     {% lorem 8 p %}
+                  </div>
+                  <!-- /.tab-pane -->
+               </div>
+               <!-- /.tab-content -->
+            </div><!-- /.card-body -->
+         </div>
+         <!-- ./card -->
+      </div>
+      <!-- /.col -->
+   </div>
+
+</div>
+
+
+{% endblock content %}

@@ -54,10 +54,13 @@ email {% endcomment %}
             <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
           </div>
           <select name="client_type" class="custom-select" id="client_type">
-            <option value = "0" selected>Saúde</option>
-            <option value="1">Social</option>
-            <option value="2">Educação</option>
-            <option value="3">YabadabadOooo</option>
+            {% for categorie in categories %}
+              {% if categorie.first %}
+              <option value = "{{categorie.id}}" selected>{{categorie.name}}</option>              
+              {% else %}
+              <option value="{{categorie.id}}">{{categorie.name}}</option>
+              {% endif %}
+            {% endfor %}
           </select>
         </div>
 
