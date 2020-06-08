@@ -44,6 +44,9 @@ class ClientCategoryRelation(models.Model):
     url = models.CharField(max_length=150, null=True, blank=True)
     urlcentral = models.CharField(max_length=150, null=True, blank=True)
 
+    class Meta:
+        unique_together =('categorie', 'client')
+
     def __str__(self):
         return ('[' 
         + str(self.id) 

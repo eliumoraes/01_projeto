@@ -18,6 +18,10 @@
 {% endwith %}
 {% endif %}
 
+{% if script %}
+ {{script|safe}}
+{% endif %}
+
 
 {% if messages %}
 <script type="text/javascript">

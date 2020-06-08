@@ -1,0 +1,42 @@
+.form-group.form-group-new {
+    display: flex;
+}
+
+.form-group.form-group-new .input-group-text {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.select2-selection.select2-selection--single {
+    height: 38px;
+    outline-width: 0;
+}
+
+span.select2-selection.select2-selection--single{
+    border: 1px solid #ced4da;
+}
+
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    /* padding-left: 8px; */
+    padding-left: 0;
+  }
+  
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #aaa;
+  }
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 26px;
+    position: absolute;
+    top: 6px;
+    right: 7px;
+    width: 20px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    /* border-color: #888 transparent transparent transparent; */
+    border-color: #343a40 transparent transparent transparent;
+  }
+  
+  
+  

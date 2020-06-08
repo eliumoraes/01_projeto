@@ -90,7 +90,7 @@ def approvedRegisterUser(request):
         'menu_newuser':'True',
         'pagetitle':'Inserir novo usuário',
         'categories':categories,
-        'menu':mainMenu,
+        'menu':mainMenu(),
         }
     return render(request, 'register_approved.html', context)
 
@@ -136,7 +136,7 @@ def profilePage(request, user):
 
         userprofile = UserProfile.objects.get(user__pk=userid)
         context = {
-            'menu':mainMenu,
+            'menu':mainMenu(),
             'pagetitle':'Perfil', 
             'userprofile':userprofile, 
             'assetsjs':assetsjs,
@@ -145,7 +145,7 @@ def profilePage(request, user):
         return render(request, 'profile.html', context)
     except:
         context = {
-            'menu':mainMenu,
+            'menu':mainMenu(),
             'pagetitle':'Erro', 
             'message':'Parece que não foi encontrado um perfil para esse usuário.',
             'categories':categories}
@@ -156,7 +156,7 @@ def dricaTeste(request):
     categories = ClientCategory.objects.all()
     clientes = Cliente.objects.all()
     context = {
-        'menu':mainMenu,
+        'menu':mainMenu(),
         'clientes':clientes, 
         'pagetitle':'DricaTeste',
         'categories':categories,
@@ -170,38 +170,81 @@ def homePage(request):
     pagetitle = 'Dashboard'
 
     context = {
-        'menu':mainMenu,
+        'menu':mainMenu(),
         'clientes':clientes, 
         'pagetitle':pagetitle,
         'categories':categories,
         }
     return render(request, 'home.html', context)
 
+# -------------- VIEW PARA CADASTRO DE CLIENTE -------------- #
 @login_required(login_url='login')
 def newClient(request):
+    clientes = Cliente.objects.all()
+    listaClientes = []
+    for item in clientes:
+        listaClientes.append(item.name)
+
     categories = ClientCategory.objects.all()
 
     if request.POST:
-        Cliente.objects.create(
-            name = request.POST['client_name'],
-            phone = re.sub('[^A-Za-z0-9]+', '', request.POST['client_phone']),
-            email = request.POST['client_email']
-        )
+        # Cliente.objects.create(
+        #     name = request.POST['client_name'],
+        #     phone = re.sub('[^A-Za-z0-9]+', '', request.POST['client_phone']),
+        #     email = request.POST['client_email']
+        # )
+        print(request.POST)
 
     assetsjs = ('plugins/inputmask/min/jquery.inputmask.bundle.min.js,'
-    +'dist/js/personal_masks.js')
+                +'dist/js/personal_masks.js,'
+                +'plugins/select2/js/select2.full.min.js')
+
+    assetscss = ('plugins/select2/css/select2.min.css,'
+                +'dist/css/select-new.css')
+
+    script = ("""
+<script>
+
+    $(document).ready(function() {
+
+    //Initialize Select2 Elements
+    $('.select2').select2({
+      theme: 'bootstrap4'
+    });
+
+    var clientslist = ['Cliente1', 'Cliente2', 'Cliente3', 'Barretos', 'Outro Exemplo'];
+    $('.select2').select2({
+        data: clientslist,
+        tags: true
+    });
+    });
+
+</script>
+        """)
+    
+
+    # cat = ClientCategory.objects.get(id=catid)
+    # cli = Cliente.objects.get(id=cliid)
+
+    # if ClientCategoryRelation.objects.filter(categorie=outronovo.categorie, client=outronovo.client).exists():
+    #     print('Já existe o registro')
+    # else:
+    #     print('Pode gravar com tranquilidade')
 
     context = {
-        'menu':mainMenu,
+        'menu':mainMenu(),
         'pagetitle':'Novo cliente', 
         'assetsjs':assetsjs,
+        'assetscss':assetscss,
         'menu_clientes':'True',
         'menu_clientes_novo':'True',
         'menu_cadastros':'True',
+        'script':script,
         'categories':categories,
     }
     return render(request, 'new_client.html', context)
 
+# -------------- VIEW PARA REGISTRO DE CATEGORIA -------------- #
 @login_required(login_url='login')
 def newClientCategory(request):
     categories = ClientCategory.objects.all()
@@ -212,7 +255,7 @@ def newClientCategory(request):
         )
 
     context = {
-        'menu':mainMenu,
+        'menu':mainMenu(),
         'menu_clientes':'True',
         'menu_cadastros':'True',
         'menu_clientes_novo_tipo': 'True',
@@ -221,6 +264,7 @@ def newClientCategory(request):
         }
     return render(request, 'new_client_category.html', context)
 
+# -------------- PÁGINA DO CLIENTE -------------- #
 @login_required(login_url='login')
 def clientPage(request, client_id, client_cat):
     cliente = str(client_id)
@@ -241,7 +285,7 @@ def clientPage(request, client_id, client_cat):
     +'dist/js/data_tables_language.js')
 
     context = {
-        'menu':mainMenu,
+        'menu':mainMenu(),
         'categories':categories,
         'pagetitle':pagetitle,
         'clientProfile':clientProfile,
@@ -250,5 +294,7 @@ def clientPage(request, client_id, client_cat):
     }
 
     return render(request, 'client_view.html', context)
+
+
 
     
