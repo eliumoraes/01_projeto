@@ -11,7 +11,6 @@ from django.contrib.auth.models import User
 
 import re
 
-
 # class DricaPageView(TemplateView):
 #     template_name = 'dri.html'
 
@@ -202,9 +201,15 @@ def newClient(request):
     assetscss = ('plugins/select2/css/select2.min.css,'
                 +'dist/css/select-new.css')
 
+    cliscript = ''
+    for i in clientes:
+        if(i != clientes[0]):
+            cliscript = cliscript + ", '{}'".format(i)
+        else:
+            cliscript = "'{}'".format(i)
+
     script = ("""
 <script>
-
     $(document).ready(function() {
 
     //Initialize Select2 Elements
@@ -212,16 +217,14 @@ def newClient(request):
       theme: 'bootstrap4'
     });
 
-    var clientslist = ['Cliente1', 'Cliente2', 'Cliente3', 'Barretos', 'Outro Exemplo'];
+    var clientslist = [""" +cliscript +"""];
     $('.select2').select2({
         data: clientslist,
         tags: true
     });
     });
-
 </script>
         """)
-    
 
     # cat = ClientCategory.objects.get(id=catid)
     # cli = Cliente.objects.get(id=cliid)
@@ -294,7 +297,3 @@ def clientPage(request, client_id, client_cat):
     }
 
     return render(request, 'client_view.html', context)
-
-
-
-    

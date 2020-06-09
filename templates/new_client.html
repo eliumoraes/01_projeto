@@ -3,102 +3,76 @@
 
 {% block pagetitle2 %}{{pagetitle}}{% endblock pagetitle2 %}
 {% block pagetitle3 %}{{pagetitle}}{% endblock pagetitle3 %}
-{% block navbar %} 
+{% block navbar %}
 
 {% include "navbar.html" %}
 {% endblock navbar %}
 
- {% block sidebar %}
-    {% include "sidebar.html" %}
- {% endblock sidebar %}
+{% block sidebar %}
+{% include "sidebar.html" %}
+{% endblock sidebar %}
 
 {% block content %}
 
-{% comment %} nome 
-telefone
-email {% endcomment %}
-
 <div class="card card-info">
 
-    <div class="card-header">
-      <h3 class="card-title">Dados do cliente</h3>
-    </div>
+  <div class="card-header">
+    <h3 class="card-title">Dados do cliente</h3>
+  </div>
 
-    <div class="card-body">
+  <div class="card-body">
 
-      <form action="" method="POST">
-        {% csrf_token %}
+    <form action="" method="POST">
+      {% csrf_token %}
 
-
-
-        <div class="form-group form-group-new">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
-          </div>
-          <select class="form-control select2" style="widht: 100%;" name="client_name">
-            <option disabled selected style="color:red">Selecione ou crie um novo cliente</option>
-          </select>
+      <div class="form-group form-group-new">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
         </div>
+        <select class="form-control select2" style="widht: 100%;" name="client_name">
+          <option disabled selected style="color:red">Selecione ou crie um novo cliente</option>
+        </select>
+      </div>
 
-        {% comment %} <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
-          </div>
-          <select class="form-control select2 select2-hidden-accessible" style="width: 90%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-            <option value="" selected hidden></option>
-          </select>
-        </div> {% endcomment %}
-
-        
-
-        {% comment %} <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
-          </div>
-          <input name="client_name" type="text" class="form-control" placeholder="Nome do cliente">
-        </div> {% endcomment %}
-
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-at"></i></span>
-          </div>
-          <input name="client_email" type="text" class="form-control" placeholder="Email">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-at"></i></span>
         </div>
+        <input name="client_email" type="text" class="form-control" placeholder="Email">
+      </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-phone"></i></span>
-          </div>
-          <input name="client_phone" type="text" class="form-control telefone" />
-        </div> 
-
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
-          </div>
-          <select name="client_type" class="custom-select" id="client_type">
-            {% for categorie in categories %}
-              {% if categorie.first %}
-              <option value = "{{categorie.id}}" selected>{{categorie.name}}</option>              
-              {% else %}
-              <option value="{{categorie.id}}">{{categorie.name}}</option>
-              {% endif %}
-            {% endfor %}
-          </select>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-phone"></i></span>
         </div>
+        <input name="client_phone" type="text" class="form-control telefone" />
+      </div>
 
-        <div class="float-right">
-          <button type="submit" class="btn btn-block bg-gradient-primary">Adicionar</button>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
         </div>
+        <select name="client_type" class="custom-select" id="client_type">
+          {% for categorie in categories %}
+          {% if categorie.first %}
+          <option value="{{categorie.id}}" selected>{{categorie.name}}</option>
+          {% else %}
+          <option value="{{categorie.id}}">{{categorie.name}}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+      </div>
 
-        <div class="float-left">
-          <a href="{% url 'home'%}" class="btn btn-block bg-gradient-secondary">Cancelar</a>
-        </div>
-      </form>
-    </div>
-    <!-- /.card-body -->
+      <div class="float-right">
+        <button type="submit" class="btn btn-block bg-gradient-primary">Adicionar</button>
+      </div>
+
+      <div class="float-left">
+        <a href="{% url 'home'%}" class="btn btn-block bg-gradient-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+  <!-- /.card-body -->
 </div>
-
-
 
 {% endblock content %}
