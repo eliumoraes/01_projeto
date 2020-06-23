@@ -1,4 +1,4 @@
-Algumas coisas importantes:
+Dicas sobre o GIT -->
 
 1.  Iniciar: 
 
@@ -9,3 +9,22 @@ Algumas coisas importantes:
     git status : Ele vai mostrar as modificações realizadas. Concordando com isso, prossegue com os próximos.
     git add -A : Pega todas as modificações e prepara para enviar! Cria um pacote!
     git commit -m "blablabla" : Vai realizar entre as aspas a definição do que está sendo comitado.
+
+Definições sobre o projeto -->
+
+1.  Iniciar:
+
+    Abrir a pasta principal e rodar o comando "pipenv shell"
+
+    Iniciar o projeto rodando o django: python manage.py runserver]
+
+2.  Migrar:
+
+    O sistema foi configurado para rodar num banco do postgres conforme definições em canivete_project/settings.py
+
+    Se não houver banco de dados é necessário criar um, isso pode ser feito através dos comandos abaixo:
+
+    python manage.py makemigrations
+    python manage.py migrate
+
+    Após rodar os dois acima, se o banco estiver corretamente configurado o sistema irá iniciar corretamente conforme 1.

@@ -1,0 +1,39 @@
+<table id="version_table_list" class="table table-bordered table-striped dataTable dtr-inline" role="grid"
+    aria-describedby="users_table_list_info">
+    <thead>
+        <tr role="row">
+            <th class="sorting_asc" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1"
+                aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Versão</th>
+            <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1"
+                aria-label="Browser: activate to sort column ascending">Data</th>
+            <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1"
+                aria-label="Platform(s): activate to sort column ascending">Usuário</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr role="row" class="{% cycle 'odd' 'even' %}">
+            <td class="sorting_1" tabindex="0">10/10/2020</td>
+            <td>9.44</td>
+            <td>Pessoa qualquer</td>
+        </tr>
+
+        {% for item in versions %}
+
+        <tr role="row" class="{% cycle 'odd' 'even' %}">
+            <td class="sorting_1" tabindex="0"> {{item.version}} </td>
+            <td>{{item.dataHora}} </td>
+            <td>{{item.usuario}}</td>
+        </tr>
+        
+        {% endfor %}
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th rowspan="1" colspan="1">Versão</th>
+            <th rowspan="1" colspan="1">Data</th>
+            <th rowspan="1" colspan="1">Usuário</th>
+        </tr>
+    </tfoot>
+</table>

@@ -187,12 +187,65 @@ def newClient(request):
     categories = ClientCategory.objects.all()
 
     if request.POST:
-        # Cliente.objects.create(
-        #     name = request.POST['client_name'],
-        #     phone = re.sub('[^A-Za-z0-9]+', '', request.POST['client_phone']),
-        #     email = request.POST['client_email']
-        # )
         print(request.POST)
+        namein = (' '.join((request.POST['client_name']).split())).title()
+        phonein = re.sub('[^A-Za-z0-9]+', '', request.POST['client_phone'])
+        emailin = request.POST['client_email']
+        categoriain = int(request.POST['client_type'])
+        
+        print(type(categoriain))
+
+        print(namein + ' ' +phonein + ' ' +emailin +' ' +str(categoriain))
+
+        cat = ClientCategory.objects.get(id=categoriain)
+        criaCliente = Cliente.objects.filter(name=namein)
+
+        # """ Iniciando rotina para criação de cliente: """
+
+        # Verifica se o cliente existe:
+        if( len(criaCliente) == 1 ):
+            print('Len é igual a 1')
+            #Se existe:
+            #Verifica se está registrado no sistema indicado
+            if ClientCategoryRelation.objects.filter(categorie=cat, client=criaCliente[0]).exists():
+                print('Já existe o registro')
+                #Se estiver registrado informa que o cliente / registro já existe
+                #Aqui eu posso passar uma página de erro, porém devo mudar a chamada para uma classe
+                context = {
+                'menu':mainMenu(),
+                'pagetitle':'Erro', 
+                'message':'O cliente informado já possui registro na categoria indicada.'
+                }
+                return render(request, 'error_01.html', context)  
+            else:
+                print('Pode gravar com tranquilidade')
+                #Se não estiver efetua o registro
+                insereClienteNaCategoria = ClientCategoryRelation(categorie=cat, client=criaCliente[0])
+                insereClienteNaCategoria.save()
+                print(insereClienteNaCategoria)
+
+        elif( len(criaCliente) > 1):
+            context = {
+            'menu':mainMenu(),
+            'pagetitle':'Erro', 
+            'message':'Existem 2 ou mais clientes com o mesmo nome.'
+            }
+            return render(request, 'error_01.html', context)            
+        else:
+            # Se não existe:
+            # Cria o cliente
+            print('Esse cliente ainda não existe')
+            Cliente.objects.create(
+                name = (' '.join((request.POST['client_name']).split())).title(),
+                phone = re.sub('[^A-Za-z0-9]+', '', request.POST['client_phone']),
+                email = request.POST['client_email']
+            )
+            # Efetua o registro            
+            criaCliente = Cliente.objects.filter(name=namein)
+            insereClienteNaCategoria = ClientCategoryRelation(categorie=cat, client=criaCliente[0])
+            insereClienteNaCategoria.save()
+            print(insereClienteNaCategoria)
+       
 
     assetsjs = ('plugins/inputmask/min/jquery.inputmask.bundle.min.js,'
                 +'dist/js/personal_masks.js,'
@@ -225,14 +278,6 @@ def newClient(request):
     });
 </script>
         """)
-
-    # cat = ClientCategory.objects.get(id=catid)
-    # cli = Cliente.objects.get(id=cliid)
-
-    # if ClientCategoryRelation.objects.filter(categorie=outronovo.categorie, client=outronovo.client).exists():
-    #     print('Já existe o registro')
-    # else:
-    #     print('Pode gravar com tranquilidade')
 
     context = {
         'menu':mainMenu(),
@@ -274,6 +319,9 @@ def clientPage(request, client_id, client_cat):
     categorie = str(client_cat)
     categories = ClientCategory.objects.all()
     clientProfile = ClientCategoryRelation.objects.get(categorie__pk=categorie, client__pk=cliente)
+    versions = ClientCategoryVersion.objects.filter(clientCat=clientProfile).order_by('-dataHora')
+    ultima = versions[:1]
+    # ultima = versions.reverse()[:1]
     pagetitle = clientProfile.client.name + ' ' + clientProfile.categorie.name
 
     # Meus CSS's
@@ -288,12 +336,14 @@ def clientPage(request, client_id, client_cat):
     +'dist/js/data_tables_language.js')
 
     context = {
+        'assetscss':assetscss, 
+        'assetsjs':assetsjs,
         'menu':mainMenu(),
         'categories':categories,
         'pagetitle':pagetitle,
         'clientProfile':clientProfile,
-        'assetscss':assetscss, 
-        'assetsjs':assetsjs, 
+        'versions':versions,
+        'ultima':ultima[0].version
     }
 
     return render(request, 'client_view.html', context)

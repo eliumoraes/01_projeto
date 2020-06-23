@@ -55,3 +55,9 @@ class ClientCategoryRelation(models.Model):
         + ' (' 
         + self.categorie.name
         + ')')
+
+class ClientCategoryVersion(models.Model):
+    clientCat = models.ForeignKey(ClientCategoryRelation, null=False, on_delete=models.CASCADE)
+    version = models.CharField(max_length=10)
+    dataHora = models.DateTimeField(auto_now_add=True)
+    usuario = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
