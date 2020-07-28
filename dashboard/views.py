@@ -318,22 +318,55 @@ def clientPage(request, client_id, client_cat):
     cliente = str(client_id)
     categorie = str(client_cat)
     categories = ClientCategory.objects.all()
+    categoryversions = CategoryVersion.objects.filter(category=categorie)
     clientProfile = ClientCategoryRelation.objects.get(categorie__pk=categorie, client__pk=cliente)
     versions = ClientCategoryVersion.objects.filter(clientCat=clientProfile).order_by('-dataHora')
-    ultima = versions[:1]
+    if(len(versions) == 0):
+        ultima = 'Informar!'
+    else:
+        ultima = (versions[:1])[0].version.version
+        
     # ultima = versions.reverse()[:1]
     pagetitle = clientProfile.client.name + ' ' + clientProfile.categorie.name
 
     # Meus CSS's
     assetscss = ('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css,'
-    +'plugins/datatables-responsive/css/responsive.bootstrap4.min.css')
+    +'plugins/datatables-responsive/css/responsive.bootstrap4.min.css,'
+    +'plugins/select2/css/select2.min.css,'
+    +'dist/css/select-new.css')
 
     # Meus JS's
     assetsjs =('plugins/datatables/jquery.dataTables.min.js,' 
     +'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js,'
     +'plugins/datatables-responsive/js/dataTables.responsive.min.js,'
     +'plugins/datatables-responsive/js/responsive.bootstrap4.min.js,'
-    +'dist/js/data_tables_language.js')
+    +'dist/js/data_tables_language.js,'
+    +'plugins/select2/js/select2.full.min.js')
+
+    catscript = ''
+    for i in categoryversions:
+        if(i != categoryversions[0]):
+            catscript = catscript + ", '{}'".format(i)
+        else:
+            catscript = "'{}'".format(i)
+
+    script = ("""
+<script>
+    $(document).ready(function() {
+
+    //Initialize Select2 Elements
+    $('.select2').select2({
+      theme: 'bootstrap4'
+    });
+
+    var clientslist = [""" +catscript +"""];
+    $('.select2').select2({
+        data: clientslist,
+        tags: true
+    });
+    });
+</script>
+        """)
 
     context = {
         'assetscss':assetscss, 
@@ -343,7 +376,8 @@ def clientPage(request, client_id, client_cat):
         'pagetitle':pagetitle,
         'clientProfile':clientProfile,
         'versions':versions,
-        'ultima':ultima[0].version
+        'ultima':ultima,
+        'script':catscript
     }
 
     return render(request, 'client_view.html', context)

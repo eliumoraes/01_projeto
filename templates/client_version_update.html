@@ -1,0 +1,24 @@
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+    </div>
+    <input type="text" class="form-control" placeholder="{{pagetitle}}" disabled="">
+</div>
+
+<div class="form-group form-group-new">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+    </div>
+    <select class="form-control select2" style="widht: 100%;" name="client_name">
+        <option disabled selected style="color:red">Selecione ou crie uma nova versão</option>
+    </select>
+</div>
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+    </div>
+    <input type="text" class="form-control" placeholder="{{request.user.first_name}} {{request.user.last_name}}" disabled="">
+</div>
+
+{% comment %} Resolver questão da setinha... {% endcomment %}

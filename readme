@@ -28,3 +28,9 @@ Definições sobre o projeto -->
     python manage.py migrate
 
     Após rodar os dois acima, se o banco estiver corretamente configurado o sistema irá iniciar corretamente conforme 1.
+
+3. Django Shell
+
+    Para importar todos os models no Shell:
+
+    from dashboard.models import *

@@ -80,7 +80,7 @@
             <div class="icon">
                <i class="fas fa-parachute-box"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="#update_version" data-toggle="tab" class="small-box-footer">
                Atualizar <i class="fas fa-cloud-upload-alt"></i>
             </a>
          </div>
@@ -223,6 +223,10 @@
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="tab_3">
                      {% include "client_version_list.html" %}
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="update_version">
+                     {% include "client_version_update.html" %}
                   </div>
                   <!-- /.tab-pane -->
                </div>

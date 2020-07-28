@@ -12,16 +12,12 @@
     </thead>
     <tbody>
 
-        <tr role="row" class="{% cycle 'odd' 'even' %}">
-            <td class="sorting_1" tabindex="0">10/10/2020</td>
-            <td>9.44</td>
-            <td>Pessoa qualquer</td>
-        </tr>
+
 
         {% for item in versions %}
 
         <tr role="row" class="{% cycle 'odd' 'even' %}">
-            <td class="sorting_1" tabindex="0"> {{item.version}} </td>
+            <td class="sorting_1" tabindex="0"> {{item.version.version}} </td>
             <td>{{item.dataHora}} </td>
             <td>{{item.usuario}}</td>
         </tr>

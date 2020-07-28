@@ -56,8 +56,34 @@ class ClientCategoryRelation(models.Model):
         + self.categorie.name
         + ')')
 
+class CategoryVersion(models.Model):
+    category = models.ForeignKey(ClientCategory, null=False, on_delete=models.CASCADE)
+    version = models.CharField(max_length=10)
+    def __str__(self):
+        return('['
+        +str(self.id)
+        +'] '
+        +self.category.name
+        +' - '
+        +self.version
+        )
+
 class ClientCategoryVersion(models.Model):
     clientCat = models.ForeignKey(ClientCategoryRelation, null=False, on_delete=models.CASCADE)
-    version = models.CharField(max_length=10)
+    #version = models.CharField(max_length=10)
+    version = models.ForeignKey(CategoryVersion, on_delete=models.CASCADE, null=False)
     dataHora = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return(
+        self.clientCat.client.name +' - '
+        +self.clientCat.categorie.name +' ( '
+        +self.version.version +' ) '
+        +str(self.dataHora)
+        )
+
+# Criar um model para versão
+# Criar um padrão igual ao de cadastro do cliente na opção de atualizar
+# Trazer o usuário logado
+# Puxar data e hora do momento
