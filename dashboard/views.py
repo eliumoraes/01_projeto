@@ -321,10 +321,44 @@ def clientPage(request, client_id, client_cat):
     categoryversions = CategoryVersion.objects.filter(category=categorie)
     clientProfile = ClientCategoryRelation.objects.get(categorie__pk=categorie, client__pk=cliente)
     versions = ClientCategoryVersion.objects.filter(clientCat=clientProfile).order_by('-dataHora')
+    def salvarVersao(clientcat, version, usuario):
+        #Verificar se já existe e gerar uma página de erro.
+        ClientCategoryVersion.objects.create(clientCat=clientcat, version=version, usuario=usuario)
+    
     if(len(versions) == 0):
         ultima = 'Informar!'
     else:
         ultima = (versions[:1])[0].version.version
+
+    if request.POST:
+        print(request.POST)
+        capturedversion = (request.POST['new_version']).upper()
+
+         #Cliente --> clientCat
+        #clientProfile
+
+        #Usuário --> usuario
+        usersave = User.objects.get(id=request.POST['user'])
+
+        #Versão --> version
+        versioncase = CategoryVersion.objects.filter(category=categorie, version=capturedversion)
+        #Verificar se a versão existe
+        if len(versioncase)==1:
+            salvarVersao(clientProfile, versioncase[0], usersave)
+            #Caso sim, passar chave e salvar na relação com o cliente
+        elif len(versioncase)==0:
+            #Caso não, criar a versão, passar chave e salvar na relação com o cliente
+            CategoryVersion.objects.create(
+                category = ClientCategory.objects.get(id=categorie),
+                version = capturedversion
+            )
+            versioncase = CategoryVersion.objects.filter(category=categorie, version=capturedversion)
+            salvarVersao(clientProfile, versioncase[0], usersave)
+
+       
+
+
+        print(clientProfile)
         
     # ultima = versions.reverse()[:1]
     pagetitle = clientProfile.client.name + ' ' + clientProfile.categorie.name
@@ -346,9 +380,9 @@ def clientPage(request, client_id, client_cat):
     catscript = ''
     for i in categoryversions:
         if(i != categoryversions[0]):
-            catscript = catscript + ", '{}'".format(i)
+            catscript = catscript + ", '{}'".format(i.version)
         else:
-            catscript = "'{}'".format(i)
+            catscript = "'{}'".format(i.version)
 
     script = ("""
 <script>
@@ -377,7 +411,7 @@ def clientPage(request, client_id, client_cat):
         'clientProfile':clientProfile,
         'versions':versions,
         'ultima':ultima,
-        'script':catscript
+        'script':script
     }
 
     return render(request, 'client_view.html', context)

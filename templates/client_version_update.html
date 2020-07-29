@@ -1,24 +1,37 @@
-<div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
-    </div>
-    <input type="text" class="form-control" placeholder="{{pagetitle}}" disabled="">
-</div>
+<form action="" method="POST">
+    {% csrf_token %}
 
-<div class="form-group form-group-new">
-    <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+        </div>
+        <input type="text" class="form-control" value="{{pagetitle}}" name="client_category" placeholder="{{pagetitle}}" readonly="">
     </div>
-    <select class="form-control select2" style="widht: 100%;" name="client_name">
-        <option disabled selected style="color:red">Selecione ou crie uma nova versão</option>
-    </select>
-</div>
 
-<div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+    <div class="form-group form-group-new">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+        </div>
+        <select class="form-control select2" style="width: 100%;" name="new_version">
+            <option disabled selected style="color:red">Selecione ou crie uma nova versão</option>
+        </select>
     </div>
-    <input type="text" class="form-control" placeholder="{{request.user.first_name}} {{request.user.last_name}}" disabled="">
-</div>
 
-{% comment %} Resolver questão da setinha... {% endcomment %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+        </div>
+        <input type="text" class="form-control" value="{{request.user.first_name}} {{request.user.last_name}}" placeholder="{{request.user.first_name}} {{request.user.last_name}}" disabled="">
+        <input type="hidden" class="form-control" value="{{request.user.id}}" name="user" readonly="">
+    </div>
+
+    {% comment %} Resolver questão da setinha... {% endcomment %}
+      <div class="float-right">
+        <button type="submit" class="btn btn-block bg-gradient-primary">Adicionar</button>
+      </div>
+
+      <div class="float-left">
+        <a href="{% url 'home'%}" class="btn btn-block bg-gradient-secondary">Cancelar</a>
+      </div>
+
+</form>
