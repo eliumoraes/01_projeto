@@ -16,6 +16,7 @@ urlpatterns = [
     path('users/', views.usersList, name='users'),
     path('new_client/', views.newClient, name='new_client'),
     path('new_client_category/', views.newClientCategory, name='new_client_category'),
-    path('client/<str:client_id>/<str:client_cat>/', views.clientPage, name='client')
+    path('client/<str:client_id>/<str:client_cat>/', views.clientPage, name='client'),
+    path('client/<str:client_id>/<str:client_cat>/', views.clientPage, name='clientupdate')
 
 ] 
