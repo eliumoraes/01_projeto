@@ -184,37 +184,8 @@
             <div class="card-body">
                <div class="tab-content">
                   <div class="tab-pane active" id="tab_1">
-                     <table id="users_table_list" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="users_table_list_info">
-                        <thead>
-                        <tr role="row">
-                        <th class="sorting_asc" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Data</th>
-                        <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Versão</th>
-                        <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Solicitante</th>
-                        <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Atendente</th>
-                        <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        
-                        <tr role="row" class="{% cycle 'odd' 'even' %}">
-                        <td class="sorting_1" tabindex="0">10/10/2020</td>
-                        <td>9.44</td>
-                        <td>Pessoa qualquer</td>
-                        <td>Qualquer pessoa</td>       
-                        <td>Finalizado</td>             
-                        </tr>                
-                        
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                        <th rowspan="1" colspan="1">Data</th>
-                        <th rowspan="1" colspan="1">Versão</th>
-                        <th rowspan="1" colspan="1">Solicitante</th>
-                        <th rowspan="1" colspan="1">Atendente</th>
-                        <th rowspan="1" colspan="1">Status</th>
-                        </tr>
-                        </tfoot>
-                     </table>
+                     {% include "client_backup_list.html" %}
+                     
                   </div>
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="tab_2">

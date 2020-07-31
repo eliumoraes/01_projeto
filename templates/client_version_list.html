@@ -19,7 +19,7 @@
         <tr role="row" class="{% cycle 'odd' 'even' %}">
             <td class="sorting_1" tabindex="0"> {{item.version.version}} </td>
             <td>{{item.dataHora}} </td>
-            <td>{{item.usuario}}</td>
+            <td>{{item.usuario.first_name}} {{item.usuario.last_name}}</td>
         </tr>
         
         {% endfor %}

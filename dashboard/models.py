@@ -83,7 +83,25 @@ class ClientCategoryVersion(models.Model):
         +str(self.dataHora)
         )
 
-# Criar um model para versão
-# Criar um padrão igual ao de cadastro do cliente na opção de atualizar
-# Trazer o usuário logado
-# Puxar data e hora do momento
+'''
+Ao solicitar o backup, o status será: pendente
+Ele poderá se tornar finalizado ao ser atendido
+Ou cancelado, se este for o caso.
+
+As colunas principais da tabela serão 6:
+Solicitação	Versão	Solicitante	Atendimento	Atendente	Status
+
+-->
+Solicitação = Data
+Versão = Versão que o sistema se encontrava durante a solicitação
+Solicitante = Nome da pessoa que solicitou o backup
+
+Atendimento = Data
+Atendente = Nome da pessoa que atendeu a solicitação
+Status = Irá conter o último status...
+
+-->
+Criar tabela com os Status's
+
+
+'''
