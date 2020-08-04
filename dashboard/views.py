@@ -335,6 +335,7 @@ def clientPage(request, client_id, client_cat):
     categoryversions = CategoryVersion.objects.filter(category=categorie)
     clientProfile = ClientCategoryRelation.objects.get(categorie__pk=categorie, client__pk=cliente)
     versions = ClientCategoryVersion.objects.filter(clientCat=clientProfile).order_by('-dataHora')
+    backups = ClientBackup.objects.filter(client=clientProfile).order_by('-solic_date')
 
     
     if(len(versions) == 0):
@@ -444,6 +445,7 @@ def clientPage(request, client_id, client_cat):
         'pagetitle':pagetitle,
         'clientProfile':clientProfile,
         'versions':versions,
+        'backups':backups,
         'ultima':ultima,
         'script':script
     }

@@ -13,14 +13,27 @@
 
     <tbody>
     
-        <tr role="row" class="{% cycle 'odd' 'even' %}">
+        {% comment %} <tr role="row" class="{% cycle 'odd' 'even' %}">
             <td class="sorting_1" tabindex="0">10/10/2020</td>
             <td>9.44</td>
             <td>Pessoa qualquer</td>
             <td class="sorting_1" tabindex="0">10/10/2020</td>
             <td>Qualquer pessoa</td>       
             <td>Finalizado</td>             
-        </tr>                
+        </tr> {% endcomment %}
+
+        {% for blinha in backups %}
+        
+        <tr role="row" class="{% cycle 'odd' 'even' %}">
+            <td class="sorting_1" tabindex="0">{{blinha.solic_date|date:"d/m/Y H:i:s"}}</td>
+            <td>{{blinha.solic_version.version.version}}</td>
+            <td>{{blinha.solic_user.first_name}} {{blinha.solic_user.last_name}}</td>
+            <td class="sorting_1" tabindex="0">{{blinha.atend_date|date:"d/m/Y H:i:s"|default_if_none:""}}</td>
+            <td>{{blinha.atend_user.first_name}} {{blinha.atend_user.last_name}}</td>     
+            <td>{{blinha.get_status_display}}</td>             
+        </tr>
+
+        {% endfor %}      
     
     </tbody>
 

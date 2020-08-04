@@ -89,12 +89,14 @@ class ClientBackup(models.Model):
         ('C', 'Cancelado'),
         ('F', 'Finalizado'),
     )
+    client = models.ForeignKey(ClientCategoryRelation, null=False, on_delete=models.CASCADE)
     solic_date = models.DateTimeField(auto_now_add=True)    
     solic_version = models.ForeignKey(ClientCategoryVersion, null=False, on_delete=models.CASCADE)
     solic_user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name='solicitante')
     atend_date = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     atend_user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name='atendente')
     status = models.CharField(max_length=1, choices=STATUS)
+    localizacao = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return(
@@ -128,4 +130,33 @@ Status's poderão ser:
 Finalizado = Quando o backup foi entregue
 Pendente = Quando está aguardando
 Cancelado = Se não houver mais necessidade
+
+-->
+Fazer funcionar o botão solicitar
+Desenhar a tela de solicitação
+Não permitir solicitar se já houver uma solicitação pendente
+
+Na questao de atendimento:
+É preciso construir uma lista para cadastros dos FTP's que será utilizada no atendimento
+Durante o atendimento foram decididos os formatos de entrega abaixo:
+
+C:\Minha pasta\Qualquer coisa
+
+\\192.169.0.137\Bancos de Dados\Eliu\
+
+ftp.assessorpublico.com.br publicoftp:9kam8rez \eliu\birigui\
+
+Deverá ser construído um padrão para o terceiro.
+FTP, nome do FTP, usuário e senha serão cadastrados.
+
+Dar a opção para o atendente selecionar
+Trazer o valor como chave estrangeira
+Caso opte por não selecionar
+Apenas preencher o valor do caminho que será salvo no campo localizacao.
+
+
+Fazer funcionar o botão atender
+Desenhar a tela de atendimento
+
+
 '''

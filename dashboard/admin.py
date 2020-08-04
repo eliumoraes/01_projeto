@@ -12,4 +12,7 @@ admin.site.register(ClientCategory)
 admin.site.register(ClientCategoryRelation)
 admin.site.register(CategoryVersion)
 admin.site.register(ClientCategoryVersion)
-admin.site.register(ClientBackup)
+
+@admin.register(ClientBackup)
+class ClientBackup(admin.ModelAdmin):
+    list_display = ('client', 'solic_date', 'solic_version', 'solic_user', 'atend_date', 'atend_user', 'status', 'localizacao')
