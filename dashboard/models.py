@@ -83,7 +83,30 @@ class ClientCategoryVersion(models.Model):
         +str(self.dataHora)
         )
 
+class ClientBackup(models.Model):
+    STATUS = (
+        ('P', 'Pendente'),
+        ('C', 'Cancelado'),
+        ('F', 'Finalizado'),
+    )
+    solic_date = models.DateTimeField(auto_now_add=True)    
+    solic_version = models.ForeignKey(ClientCategoryVersion, null=False, on_delete=models.CASCADE)
+    solic_user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name='solicitante')
+    atend_date = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+    atend_user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name='atendente')
+    status = models.CharField(max_length=1, choices=STATUS)
+
+    def __str__(self):
+        return(
+            self.solic_version.version.version            
+            + ' - '
+            + str(self.solic_date)
+            + ' - '
+            + self.get_status_display()
+        )
+
 '''
+-->
 Ao solicitar o backup, o status será: pendente
 Ele poderá se tornar finalizado ao ser atendido
 Ou cancelado, se este for o caso.
@@ -101,7 +124,8 @@ Atendente = Nome da pessoa que atendeu a solicitação
 Status = Irá conter o último status...
 
 -->
-Criar tabela com os Status's
-
-
+Status's poderão ser:
+Finalizado = Quando o backup foi entregue
+Pendente = Quando está aguardando
+Cancelado = Se não houver mais necessidade
 '''
