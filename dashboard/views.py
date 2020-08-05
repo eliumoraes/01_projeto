@@ -451,3 +451,18 @@ def clientPage(request, client_id, client_cat):
     }
 
     return render(request, 'client_view.html', context)
+
+# -------------- PÁGINA P/ SOLICITAR BACKUP -------------- #
+@login_required(login_url='login')
+def backupRequest(request, client_id, client_cat):
+    
+    context = {
+        #'assetscss':assetscss, 
+        #'assetsjs':assetsjs,
+        'menu':mainMenu(),
+        'pagetitle':"Solicitação de Backup: Município / Categoria",
+        'client':"Cliente",
+        'ultima':"CP3.00.36"
+    }
+
+    return render(request, 'client_backup_request.html', context)

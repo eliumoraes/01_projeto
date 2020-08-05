@@ -109,31 +109,12 @@ class ClientBackup(models.Model):
 
 '''
 -->
-Ao solicitar o backup, o status será: pendente
-Ele poderá se tornar finalizado ao ser atendido
-Ou cancelado, se este for o caso.
-
-As colunas principais da tabela serão 6:
-Solicitação	Versão	Solicitante	Atendimento	Atendente	Status
-
--->
-Solicitação = Data
-Versão = Versão que o sistema se encontrava durante a solicitação
-Solicitante = Nome da pessoa que solicitou o backup
-
-Atendimento = Data
-Atendente = Nome da pessoa que atendeu a solicitação
-Status = Irá conter o último status...
-
--->
-Status's poderão ser:
-Finalizado = Quando o backup foi entregue
-Pendente = Quando está aguardando
-Cancelado = Se não houver mais necessidade
-
--->
-Fazer funcionar o botão solicitar
 Desenhar a tela de solicitação
+
+Fazer funcionar o botão solicitar
+Criar uma variável, para descobrir de onde veio antes de solicitar.
+Devolver o usuário pro mesmo lugar
+
 Não permitir solicitar se já houver uma solicitação pendente
 
 Na questao de atendimento:
@@ -154,9 +135,6 @@ Trazer o valor como chave estrangeira
 Caso opte por não selecionar
 Apenas preencher o valor do caminho que será salvo no campo localizacao.
 
-
 Fazer funcionar o botão atender
 Desenhar a tela de atendimento
-
-
 '''
