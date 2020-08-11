@@ -14,6 +14,23 @@ import re
 # class DricaPageView(TemplateView):
 #     template_name = 'dri.html'
 
+def getClient(categorie='all', client='all'):
+    if (categorie=='all' and client=='all'):
+        return ClientCategoryRelation.objects.all().order_by('client__name', 'categorie__name')
+    else:
+        return ClientCategoryRelation.objects.get(categorie__pk=categorie, client__pk=client)
+
+def getClientVersion(clientProfile, check):
+    # Receber variável que indica se quer todas as versões, ou somente a última
+    allVersions = ClientCategoryVersion.objects.filter(clientCat=clientProfile).order_by('-dataHora')
+    if check==1:
+        return allVersions
+    else:
+        if(len(allVersions) == 0):
+            return 'Informar!'
+        else:
+            return (allVersions[:1])[0].version.version
+
 
 
 def mainMenu():
@@ -329,19 +346,14 @@ def newClientCategory(request):
 # -------------- PÁGINA DO CLIENTE -------------- #
 @login_required(login_url='login')
 def clientPage(request, client_id, client_cat):
-    cliente = str(client_id)
+    client = str(client_id)
     categorie = str(client_cat)
     categories = ClientCategory.objects.all()
     categoryversions = CategoryVersion.objects.filter(category=categorie)
-    clientProfile = ClientCategoryRelation.objects.get(categorie__pk=categorie, client__pk=cliente)
-    versions = ClientCategoryVersion.objects.filter(clientCat=clientProfile).order_by('-dataHora')
+    clientProfile = getClient(categorie, client) # Relação entre cliente e categoria
+    versions = getClientVersion(clientProfile, 1) # Passa a relação acima e recebe as versões
     backups = ClientBackup.objects.filter(client=clientProfile).order_by('-solic_date')
-
-    
-    if(len(versions) == 0):
-        ultima = 'Informar!'
-    else:
-        ultima = (versions[:1])[0].version.version
+    ultima = getClientVersion(clientProfile, 2)
 
     if request.POST:
         print(request.POST)
@@ -374,7 +386,7 @@ def clientPage(request, client_id, client_cat):
                         }
                     return render(request, 'error_01.html', context)
                 else:
-                    return redirect('clientupdate', client_id=cliente, client_cat=categorie)               
+                    return redirect('clientupdate', client_id=client, client_cat=categorie)               
                 
             elif len(versioncase)==0:
                 #Caso não, criar a versão, passar chave e salvar na relação com o cliente
@@ -392,7 +404,7 @@ def clientPage(request, client_id, client_cat):
                         }
                     return render(request, 'error_01.html', context)
                 else:
-                    return redirect('clientupdate', client_id=cliente, client_cat=categorie)
+                    return redirect('clientupdate', client_id=client, client_cat=categorie)
 
         
     # ultima = versions.reverse()[:1]
@@ -444,7 +456,9 @@ def clientPage(request, client_id, client_cat):
         'categories':categories,
         'pagetitle':pagetitle,
         'clientProfile':clientProfile,
-        'versions':versions,
+        'client_id': client_id,
+        'client_cat': client_cat,
+        'versions':versions, 
         'backups':backups,
         'ultima':ultima,
         'script':script
@@ -454,15 +468,21 @@ def clientPage(request, client_id, client_cat):
 
 # -------------- PÁGINA P/ SOLICITAR BACKUP -------------- #
 @login_required(login_url='login')
-def backupRequest(request, client_id, client_cat):
+def backupRequest(request, client_id, client_cat, user_source):
+    clientProfile = getClient(client_cat, client_id)
+    pagetitle = clientProfile.client.name + ' / ' + clientProfile.categorie.name +' ' + user_source
+    ultima = getClientVersion(clientProfile, 2)
+
     
     context = {
         #'assetscss':assetscss, 
         #'assetsjs':assetsjs,
         'menu':mainMenu(),
-        'pagetitle':"Solicitação de Backup: Município / Categoria",
+        'pagetitle': pagetitle,
         'client':"Cliente",
-        'ultima':"CP3.00.36"
+        'ultima':"CP3.00.36",
+        'clientProfile': clientProfile,
+        'currentVersion': ultima
     }
 
     return render(request, 'client_backup_request.html', context)

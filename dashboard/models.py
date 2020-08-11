@@ -110,10 +110,12 @@ class ClientBackup(models.Model):
 '''
 -->
 Desenhar a tela de solicitação
-
 Fazer funcionar o botão solicitar
+
 Criar uma variável, para descobrir de onde veio antes de solicitar.
 Devolver o usuário pro mesmo lugar
+
+Resolver a dashboard, mostrar cliente com categoria
 
 Não permitir solicitar se já houver uma solicitação pendente
 

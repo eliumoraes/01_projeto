@@ -20,24 +20,27 @@
    </div>
    <div class="card-body">
       <div class="input-group mb-3">
-         <div class="input-group-prepend">
-            <span class="input-group-text">@</span>
+         <div class="input-group-prepend">         
+            <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
          </div>
-         <input type="text" class="form-control" placeholder="Username" readonly="">
+         <input type="text" class="form-control" placeholder="{{clientProfile.client.name}} {{clientProfile.categorie.name}}" disabled>
+         <input type="hidden" class="form-control" value="{{clientProfile.categorie.id}}" name="client_cat" readonly="">
+         <input type="hidden" class="form-control" value="{{clientProfile.client.id}}" name="client_id" readonly="">      
+      </div>
+
+      <div class="input-group mb-3">
+         <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-cogs"></i></span>
+         </div>
+         <input type="text" class="form-control" placeholder="{{currentVersion}}" readonly="">
       </div>
 
       <div class="input-group mb-3">
          <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
          </div>
-         <input type="email" class="form-control" placeholder="Email" readonly="">
-      </div>
-
-      <div class="input-group mb-3">
-         <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-         </div>
-         <input type="email" class="form-control" placeholder="Email" readonly="">
+         <input type="text" class="form-control" placeholder="{{request.user.first_name}} {{request.user.last_name}}" readonly="">
+         <input type="hidden" class="form-control" value="{{request.user.id}}" name="user" readonly="">
       </div>
 
       <div class="float-right">
