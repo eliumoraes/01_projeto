@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import *
 
-from django.contrib.auth import authenticate, login, logout
+# from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -14,85 +14,7 @@ import re
 # class DricaPageView(TemplateView):
 #     template_name = 'dri.html'
 
-def getClient(categorie='all', client='all'):
-    if (categorie=='all' and client=='all'):
-        return ClientCategoryRelation.objects.all().order_by('client__name', 'categorie__name')
-    else:
-        return ClientCategoryRelation.objects.get(categorie__pk=categorie, client__pk=client)
-
-def getClientVersion(clientProfile, check):
-    # Receber variável que indica se quer todas as versões, ou somente a última
-    allVersions = ClientCategoryVersion.objects.filter(clientCat=clientProfile).order_by('-dataHora')
-    if check==1:
-        return allVersions
-    else:
-        if(len(allVersions) == 0):
-            return 'Informar!'
-        else:
-            return (allVersions[:1])[0].version.version
-
-
-
-def mainMenu():
-    clientCategory = ClientCategory.objects.all()
-    listaMaior = []
-    listaMenor = []
-    for cat in clientCategory:
-        listaMenor = [[cat.name, cat.icon]]
-        listaMenor.extend(ClientCategoryRelation.objects.filter(categorie=cat))
-        listaMaior.append(listaMenor)
-    
-    listaMaior.sort()
-    return listaMaior
-
-def salvarVersao(clientcat, version, usuario):
-    #Verificar se já existe a associação dessa  versao com o cliente e gerar uma página de erro.
-    existe = ClientCategoryVersion.objects.filter(clientCat=clientcat, version=version)
-    if len(existe) == 1:
-        print('já existe a associação dessa versão, renderizar página de erro...')
-        return False
-        #gerar erro
-    else:
-        print('não deu erro de associação')
-        ClientCategoryVersion.objects.create(clientCat=clientcat, version=version, usuario=usuario)
-        return True
-
-def registerUser(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = CreateUserForm()
-
-        if request.method == 'POST':
-            form = CreateUserForm(request.POST)
-            if form.is_valid():
-                form.save()
-
-                user = form.cleaned_data.get('username')
-                messages.success(request, 'A conta ' + user +' foi criada com sucesso. Comunique o administrador para que seja aprovada.')
-                return redirect('login')
-        
-        context ={'form':form}
-        return render(request, 'register.html', context)
-
-def loginPage(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-
-            user = authenticate(request, username=username, password=password)
-
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-            else:
-                messages.info(request, 'Usuário ou Senha incorreta')
-
-        context = {}
-        return render(request, 'login.html', context)
+from .my_func import *
 
     
 @login_required(login_url='login')
@@ -195,13 +117,12 @@ def dricaTeste(request):
 
 @login_required(login_url='login') 
 def homePage(request):
-    clientes = Cliente.objects.all()
     categories = ClientCategory.objects.all()
     pagetitle = 'Dashboard'
 
     context = {
         'menu':mainMenu(),
-        'clientes':clientes, 
+        'allClients':getClient(), 
         'pagetitle':pagetitle,
         'categories':categories,
         }
@@ -473,16 +394,36 @@ def backupRequest(request, client_id, client_cat, user_source):
     pagetitle = clientProfile.client.name + ' / ' + clientProfile.categorie.name +' ' + user_source
     ultima = getClientVersion(clientProfile, 2)
 
-    
     context = {
         #'assetscss':assetscss, 
         #'assetsjs':assetsjs,
         'menu':mainMenu(),
         'pagetitle': pagetitle,
         'client':"Cliente",
-        'ultima':"CP3.00.36",
+        #'ultima':"CP3.00.36",
         'clientProfile': clientProfile,
         'currentVersion': ultima
     }
+
+    if (request.POST and request.POST['backup_request']=='requested'):
+        print(request.POST)        
+        client = getClient(request.POST['client_cat'], request.POST['client_id'])
+        version = getClientVersion(clientProfile, 3, ultima)
+        user = User.objects.get(id=request.POST['user'])
+        save = saveBackupRequest(client, version, user)
+        if not(save):
+            context = {
+                    'menu':mainMenu(),
+                    'pagetitle':'Erro', 
+                    'message':'Já existe a solicitação de backup para esta versão!'
+                    }
+            return render(request, 'error_01.html', context)
+        else:
+            if(user_source==1):
+                return redirect('client', client_id=client_id, client_cat=client_cat)
+            else:
+                return redirect('home')
+
+
 
     return render(request, 'client_backup_request.html', context)

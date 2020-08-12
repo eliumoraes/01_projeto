@@ -19,38 +19,44 @@
       <h3 class="card-title">Solicitação de backup</h3>
    </div>
    <div class="card-body">
-      <div class="input-group mb-3">
-         <div class="input-group-prepend">         
-            <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+      <form action="" method="POST">
+         {% csrf_token %}
+         <input type="hidden" class="form-control" value="requested" name="backup_request" readonly=""> 
+
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">         
+               <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="{{clientProfile.client.name}} {{clientProfile.categorie.name}}" disabled>
+            <input type="hidden" class="form-control" value="{{clientProfile.categorie.id}}" name="client_cat" readonly="">
+            <input type="hidden" class="form-control" value="{{clientProfile.client.id}}" name="client_id" readonly="">      
          </div>
-         <input type="text" class="form-control" placeholder="{{clientProfile.client.name}} {{clientProfile.categorie.name}}" disabled>
-         <input type="hidden" class="form-control" value="{{clientProfile.categorie.id}}" name="client_cat" readonly="">
-         <input type="hidden" class="form-control" value="{{clientProfile.client.id}}" name="client_id" readonly="">      
-      </div>
 
-      <div class="input-group mb-3">
-         <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-cogs"></i></span>
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">
+               <span class="input-group-text"><i class="fas fa-cogs"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="{{currentVersion}}" readonly="">
+            <input type="hidden" class="form-control" value="{{currentVersion}}" name="version" readonly="">      
+
          </div>
-         <input type="text" class="form-control" placeholder="{{currentVersion}}" readonly="">
-      </div>
 
-      <div class="input-group mb-3">
-         <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">
+               <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="{{request.user.first_name}} {{request.user.last_name}}" readonly="">
+            <input type="hidden" class="form-control" value="{{request.user.id}}" name="user" readonly="">
          </div>
-         <input type="text" class="form-control" placeholder="{{request.user.first_name}} {{request.user.last_name}}" readonly="">
-         <input type="hidden" class="form-control" value="{{request.user.id}}" name="user" readonly="">
-      </div>
 
-      <div class="float-right">
-        <button type="submit" class="btn btn-block bg-gradient-primary">Adicionar</button>
-      </div>
+         <div class="float-right">
+         <button type="submit" class="btn btn-block bg-gradient-primary">Adicionar</button>
+         </div>
 
-      <div class="float-left">
-        <a href="{% url 'home'%}" class="btn btn-block bg-gradient-secondary">Cancelar</a>
-      </div>
-
+         <div class="float-left">
+         <a href="{% url 'home'%}" class="btn btn-block bg-gradient-secondary">Cancelar</a>
+         </div>
+      </form>
    </div>
    <!-- /.card-body -->
 </div>
