@@ -83,6 +83,19 @@ class ClientCategoryVersion(models.Model):
         +str(self.dataHora)
         )
 
+class BackupDestination(models.Model):
+    name = models.CharField(max_length=80, null=False)
+    user = models.CharField(max_length=80, null=False)
+    password = models.CharField(max_length=80, null=False)
+    address = models.CharField(max_length=150, null=False)
+
+    def __str__(self):
+        return(
+        self.name
+        +' - '
+        +self.user
+        )
+
 class ClientBackup(models.Model):
     STATUS = (
         ('P', 'Pendente'),
@@ -96,6 +109,7 @@ class ClientBackup(models.Model):
     atend_date = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     atend_user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name='atendente')
     status = models.CharField(max_length=1, choices=STATUS)
+    destination = models.ForeignKey(BackupDestination, null=True, blank=True, on_delete=models.SET_NULL)
     localizacao = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
@@ -107,20 +121,19 @@ class ClientBackup(models.Model):
             + self.get_status_display()
         )
 
+
+
 '''
 -->
 Desenhar a tela de solicitação
 Fazer funcionar o botão solicitar
 Criar uma variável, para descobrir de onde veio antes de solicitar.
 Resolver a dashboard, mostrar cliente com categoria
-
 Gravar solicitaçãO
-
 Devolver o usuário pro mesmo lugar
-
-
-
 Não permitir solicitar se já houver uma solicitação pendente
+
+
 
 Na questao de atendimento:
 É preciso construir uma lista para cadastros dos FTP's que será utilizada no atendimento
@@ -134,6 +147,8 @@ ftp.assessorpublico.com.br publicoftp:9kam8rez \eliu\birigui\
 
 Deverá ser construído um padrão para o terceiro.
 FTP, nome do FTP, usuário e senha serão cadastrados.
+
+O Status irá mudar para finalizado
 
 Dar a opção para o atendente selecionar
 Trazer o valor como chave estrangeira

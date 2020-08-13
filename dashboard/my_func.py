@@ -46,13 +46,13 @@ def salvarVersao(clientcat, version, usuario):
         return True
 
 def saveBackupRequest(client, version, user):
-    checkIfExists = ClientBackup.objects.filter(client=client, solic_version=version)
+    checkIfExists = ClientBackup.objects.filter(client=client, solic_version=version, status='P')
     if len(checkIfExists) == 1:
         print("Já existe a solicitação de backup par aesta versão, renderizar página de erro...")
         return False
     else:
         print("Não existe ainda a solicitação: Salvar!")
-        ClientBackup.objects.create(client=client, solic_version=version, solic_user=user)
+        ClientBackup.objects.create(client=client, solic_version=version, solic_user=user, status='P')
         return True
 
     
