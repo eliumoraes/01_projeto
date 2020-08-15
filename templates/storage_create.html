@@ -1,0 +1,75 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block pagetitle2 %}{{pagetitle}}{% endblock pagetitle2 %}
+{% block pagetitle3 %}{{pagetitle}}{% endblock pagetitle3 %}
+
+{% block navbar %}
+   {% include "navbar.html" %}
+{% endblock navbar %}
+
+ {% block sidebar %}
+    {% include "sidebar.html"%}
+ {% endblock sidebar %}
+
+{% block content %}
+
+<div class="card card-info">
+   <div class="card-header">
+      <h3 class="card-title">Criar novo local de armazenamento</h3>
+   </div>
+   <div class="card-body">
+      <form action="" method="POST">
+         {% csrf_token %}
+
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">         
+               <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+            </div>
+            <input type="text" class="form-control" name="storage_name" placeholder="Nome do local">
+         </div>
+
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">
+               <span class="input-group-text"><i class="fas fa-cogs"></i></span>
+            </div>
+            <input type="text" class="form-control" name="storage_user" placeholder="Usuário">
+
+         </div>
+
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">
+               <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            <input type="text" class="form-control" name="storage_password" placeholder="Senha">
+         </div>
+
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">
+               <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            <input type="text" class="form-control" name="storage_adress" placeholder="Endereço">
+         </div>
+
+         <div class="input-group mb-3">
+            <div class="col-12" style="padding:0;">
+               <!-- textarea -->
+               <div class="form-group" style="padding:0;">
+                  <textarea name="storage_obs" class="form-control" rows="3" placeholder="Digite aqui as observações que se fizerem necessárias."></textarea>
+               </div>
+            </div>
+         </div>
+
+         <div class="float-right">
+         <button type="submit" class="btn btn-block bg-gradient-primary">Adicionar</button>
+         </div>
+
+         <div class="float-left">
+         <a href="{% url 'home'%}" class="btn btn-block bg-gradient-secondary">Cancelar</a>
+         </div>
+      </form>
+   </div>
+   <!-- /.card-body -->
+</div>
+
+{% endblock content %}

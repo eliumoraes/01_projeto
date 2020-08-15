@@ -88,6 +88,8 @@ class BackupDestination(models.Model):
     user = models.CharField(max_length=80, null=False)
     password = models.CharField(max_length=80, null=False)
     address = models.CharField(max_length=150, null=False)
+    obs = models.TextField(null=True, blank=True)
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return(

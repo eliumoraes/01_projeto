@@ -387,6 +387,7 @@ def clientPage(request, client_id, client_cat):
 
     return render(request, 'client_view.html', context)
 
+
 # -------------- PÁGINA P/ SOLICITAR BACKUP -------------- #
 @login_required(login_url='login')
 def backupRequest(request, client_id, client_cat, user_source):
@@ -427,3 +428,18 @@ def backupRequest(request, client_id, client_cat, user_source):
 
 
     return render(request, 'client_backup_request.html', context)
+
+# -------------- PÁGINA P/ SOLICITAR BACKUP -------------- #
+@login_required(login_url='login')
+def storageNew(request):
+    context = {
+        #'assetscss':assetscss, 
+        #'assetsjs':assetsjs,
+        'menu':mainMenu(),
+        'pagetitle': "Criar local"
+    }
+
+    if (request.POST):
+        print(request.POST)
+
+    return render(request, 'storage_create.html', context)

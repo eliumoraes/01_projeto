@@ -1,7 +1,7 @@
 {% load static %}
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="/" class="brand-link">
       <img src="{% static 'assets/dist/img/assessorlogo.png' %}"
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
@@ -35,7 +35,7 @@
                with font-awesome or any other icon font library -->
           <li class="{% if home %}nav-item menu-open{% else %}nav-item{% endif %}">
             <a href="{% url 'home' %}" class="{% if home %}nav-link active{% else %}nav-link{% endif %}">
-              <i class="nav-icon fas fa-grip-horizontal"></i>
+              <i class="nav-icon fas fa-grip-horizontal spaceicon"></i>
               <p>
                 Dashboard
               </p>
@@ -43,7 +43,7 @@
           </li>
           <li class="{% if menu_clientes %}nav-item has-treeview menu-open{% else %}nav-item has-treeview{% endif %}">
             <a href="#" class="{% if menu_clientes %}nav-link active{% else %}nav-link{% endif %}">
-              <i class="nav-icon fas fa-palette"></i>
+              <i class="nav-icon fas fa-palette spaceicon"></i>
               <p>
                 Clientes
                 <i class="right fas fa-angle-left"></i>
@@ -159,7 +159,7 @@
           <li class="{% if menu_admin %}nav-item has-treeview menu-open{% else %}nav-item has-treeview{% endif %}">
           
             <a href="#" class="{% if menu_admin %}nav-link active{% else %}nav-link{% endif %}">
-              <i class="nav-icon fas fa-cogs"></i>
+              <i class="nav-icon fas fa-cogs spaceicon"></i>
               <p>
                 Admnistração
                 <i class="fas fa-angle-left right"></i>
@@ -185,7 +185,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+              <i class="nav-icon fas fa-chart-pie spaceicon"></i>
               <p>
                 Relatórios
                 <i class="right fas fa-angle-left"></i>
@@ -214,7 +214,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
+              <i class="nav-icon fas fa-tree spaceicon"></i>
               <p>
                 Definições
                 <i class="fas fa-angle-left right"></i>
@@ -271,25 +271,25 @@
               </li>
             </ul>
           </li>
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Inserções
+              <i class="fas fa-warehouse spaceicon"></i>
+              <p>Armazenamento
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
+                <a href="{% url 'storage_create'%}" class="nav-link">
+                  <i class="fas fa-folder-plus"></i>
+                  <p>Registrar novo local</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Advanced Elements</p>
+                  <i class="fas fa-folder-open"></i>
+                  <p>Locais</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -306,6 +306,7 @@
               </li>
             </ul>
           </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -18,6 +18,7 @@ urlpatterns = [
     path('new_client_category/', views.newClientCategory, name='new_client_category'),
     path('client/<str:client_id>/<str:client_cat>/', views.clientPage, name='client'),
     path('client/<str:client_id>/<str:client_cat>/', views.clientPage, name='clientupdate'),
-    path('backup/request/<str:client_id>/<str:client_cat>/<str:user_source>/', views.backupRequest, name='backuprequest')
+    path('backup/request/<str:client_id>/<str:client_cat>/<str:user_source>/', views.backupRequest, name='backuprequest'),
+    path('storage/create/', views.storageNew, name='storage_create')
 
 ] 
