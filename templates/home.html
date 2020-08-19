@@ -131,7 +131,7 @@
                   </div>
 
                   <div class="col-lg-2 border-bottom pb-1">
-                      <a class="btn-sm btn-success">
+                      <a class="btn-sm btn-success" href="{% url 'backup_delivery' client.client.id client.categorie.id 2 request.user.id %}">
                         <i class="fas fa-plus-circle"></i>
                         Atender
                       </a>

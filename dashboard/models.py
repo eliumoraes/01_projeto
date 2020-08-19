@@ -136,7 +136,6 @@ Devolver o usuário pro mesmo lugar
 Não permitir solicitar se já houver uma solicitação pendente
 
 
-
 Na questao de atendimento:
 É preciso construir uma lista para cadastros dos FTP's que será utilizada no atendimento
 Durante o atendimento foram decididos os formatos de entrega abaixo:
@@ -152,6 +151,13 @@ FTP, nome do FTP, usuário e senha serão cadastrados.
 
 O Status irá mudar para finalizado
 
+Trazer os campos:
+Usuário de atendimento: Preenchido
+Destino: Lista para seleção
+Localização: Campo para preenchimento
+Status: Mudar automaticamente para finalizado
+Data: Buscar automaticamente
+
 Dar a opção para o atendente selecionar
 Trazer o valor como chave estrangeira
 Caso opte por não selecionar
@@ -159,4 +165,17 @@ Apenas preencher o valor do caminho que será salvo no campo localizacao.
 
 Fazer funcionar o botão atender
 Desenhar a tela de atendimento
+
+Finalizar tela de locais: Salvar, apresentar lista ao salvar,
+criar uma página de edição, criar função de inativação;
+
+Criar função de inverter barra
+
+Ao criar local definir tipo:
+Web
+FTP
+Rede Interna
+
+Inverter barra ao exibir na página do cliente.
+
 '''

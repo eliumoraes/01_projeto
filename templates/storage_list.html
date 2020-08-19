@@ -1,0 +1,70 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block pagetitle2 %}{{pagetitle}}{% endblock pagetitle2 %}
+{% block pagetitle3 %}{{pagetitle}}{% endblock pagetitle3 %}
+
+{% block navbar %}
+   {% include "navbar.html" %}
+{% endblock navbar %}
+
+ {% block sidebar %}
+    {% include "sidebar.html"%}
+ {% endblock sidebar %}
+
+{% block content %}
+{% comment %} 
+name
+user
+password
+address
+obs
+status
+{% endcomment %}
+
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Lista de locais de armazenamento</h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <table id="storage_list" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="storage_list_info">
+      <thead>
+      <tr role="row">
+        <th class="sorting_asc" tabindex="0" aria-controls="storage_list" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome</th>
+        <th class="sorting" tabindex="0" aria-controls="storage_list" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Usuário</th>
+        <th class="sorting" tabindex="0" aria-controls="storage_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Senha</th>
+        <th class="sorting" tabindex="0" aria-controls="storage_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
+        <th class="sorting" tabindex="0" aria-controls="storage_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Endereço</th>
+        <th class="sorting" tabindex="0" aria-controls="storage_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for item in destinations  %}
+      <tr role="row" class="{% cycle 'odd' 'even' %}">
+        <td class="sorting_1" tabindex="0">{{item.name}}</td>
+        <td>{{item.user}}</td>
+        <td>{{item.password}}</td>
+        <td>{% if item.status %}Ativo{% else %}Inativo{% endif %}</td>
+        <td>{{item.address}}</td>        
+        <td>*</td>                  
+      </tr>                
+      {% endfor %}
+      </tbody>
+      <tfoot>
+      <tr>
+        <th rowspan="1" colspan="1">Nome</th>
+        <th rowspan="1" colspan="1">Usuário</th>
+        <th rowspan="1" colspan="1">Senha</th>
+        <th rowspan="1" colspan="1">Status</th>
+        <th rowspan="1" colspan="1">Endereço</th>
+        <th rowspan="1" colspan="1">Ações</th>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+  <!-- /.card-body -->
+</div>
+
+{% endblock content %}

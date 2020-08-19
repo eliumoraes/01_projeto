@@ -50,7 +50,7 @@ def approvedRegisterUser(request):
 def usersList(request):
     users = User.objects.all()
     categories = ClientCategory.objects.all()
-    data_tables = 'True'
+    #data_tables = 'True'
 
     # Meus CSS's
     assetscss = ('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css,'
@@ -69,7 +69,7 @@ def usersList(request):
         'assetsjs':assetsjs, 
         'menu_admin':'True', 
         'menu_userslist':'True', 
-        'data_tables':data_tables,
+        #'data_tables':data_tables, porque criei essa variável?
         'pagetitle':'Lista de usuários',
         'categories':categories,
         'menu':mainMenu(),
@@ -429,12 +429,12 @@ def backupRequest(request, client_id, client_cat, user_source):
 
     return render(request, 'client_backup_request.html', context)
 
-# -------------- PÁGINA P/ SOLICITAR BACKUP -------------- #
+# -------------- PÁGINA PARA CRIAR LOCAIS DE ARMAZENAMENTO -------------- #
 @login_required(login_url='login')
 def storageNew(request):
     context = {
         #'assetscss':assetscss, 
-        #'assetsjs':assetsjs,
+        #'assetsjs':assetsjs,|
         'menu':mainMenu(),
         'pagetitle': "Criar local"
     }
@@ -443,3 +443,60 @@ def storageNew(request):
         print(request.POST)
 
     return render(request, 'storage_create.html', context)
+
+# -------------- PÁGINA PARA LISTAR LOCAIS DE ARMAZENAMENTO -------------- #
+@login_required(login_url='login')
+def storageList(request):
+    destinations = BackupDestination.objects.all()
+    data_tables = 'True'
+
+    # Meus CSS's
+    assetscss = ('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css,'
+    +'plugins/datatables-responsive/css/responsive.bootstrap4.min.css')
+
+    # Meus JS's
+    assetsjs =('plugins/datatables/jquery.dataTables.min.js,' 
+    +'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js,'
+    +'plugins/datatables-responsive/js/dataTables.responsive.min.js,'
+    +'plugins/datatables-responsive/js/responsive.bootstrap4.min.js,'
+    +'dist/js/data_tables_storage_list.js')
+
+    context = {
+        'assetscss':assetscss, 
+        'assetsjs':assetsjs,
+        'data_tables':data_tables,
+        'menu': mainMenu(),
+        'pagetitle': "Lista de locais",
+        'destinations': destinations
+    }
+
+
+    return render(request, 'storage_list.html', context)
+
+# -------------- PÁGINA PARA ATENDER SOLICITAÇÕES DE BACKUP -------------- #
+@login_required(login_url='login')
+def backupDelivery(request, client_id, client_cat, user_source, user_id):
+    clientProfile = getClient(client_cat, client_id)
+    pagetitle = clientProfile.client.name + ' / ' + clientProfile.categorie.name +' ' + user_source
+    user = User.objects.get(id=user_id)
+    destinations = BackupDestination.objects.all()
+
+    # Meus CSS's
+    assetscss = ('dist/css/select-new.css')
+
+    #status : mudar para finalizado
+    #data : automatica
+
+    context = {
+        'menu': mainMenu(),
+        'pagetitle': pagetitle,
+        'destinations': destinations,
+        'assetscss': assetscss,
+    }
+
+
+    if (request.POST):
+        print(request.POST)
+
+
+    return render(request, 'client_backup_delivery.html', context)

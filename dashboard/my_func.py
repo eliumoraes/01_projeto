@@ -55,6 +55,15 @@ def saveBackupRequest(client, version, user):
         ClientBackup.objects.create(client=client, solic_version=version, solic_user=user, status='P')
         return True
 
+# def saveBackupDelivery(date, user, destination, location):
+#     #Verificar se existe solicitação pendente
+
+#     #Salvar
+
+#     #Returnar true
+
+#     #Se não existe, returnar falso e renderizar página de erro
+
     
 
 def registerUser(request):

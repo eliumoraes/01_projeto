@@ -1,0 +1,73 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block pagetitle2 %}{{pagetitle}}{% endblock pagetitle2 %}
+{% block pagetitle3 %}{{pagetitle}}{% endblock pagetitle3 %}
+
+{% block navbar %}
+   {% include "navbar.html" %}
+{% endblock navbar %}
+
+ {% block sidebar %}
+    {% include "sidebar.html"%}
+ {% endblock sidebar %}
+
+{% block content %}
+
+<div class="card card-info">
+   <div class="card-header">
+      <h3 class="card-title">Entrega de backup</h3>
+   </div>
+   <div class="card-body">
+      <form action="" method="POST">
+         {% csrf_token %}
+
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">         
+               <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+            </div>
+            <input type="text" value="{% now "d/m/Y h:i:s" %}" name="delivery_date" class="form-control" placeholder="{% now "d/m/Y h:i:s" %}" readonly="">
+         </div>
+
+         <div class="form-group form-group-new">
+            <div class="input-group-prepend">
+               <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+            </div>
+
+            <select class="custom-select" name="destination">
+               <option selected>Escolha uma das opções abaixo:</option>
+               {% for dest in destinations  %}
+               <option value="{{dest.id}}">{{dest.name}}</option>
+               {% endfor %}
+            </select>
+
+         </div>
+
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">
+               <span class="input-group-text"><i class="fas fa-cogs"></i></span>
+            </div>
+            <input type="text" name="location" class="form-control" placeholder="Localização. Ex.: /municipio/ ">
+         </div>
+
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">
+               <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="{{request.user.first_name}} {{request.user.last_name}}" disabled>
+            <input type="hidden" class="form-control" value="{{request.user.id}}" name="user" readonly="">
+         </div>
+
+         <div class="float-right">
+         <button type="submit" class="btn btn-block bg-gradient-primary">Adicionar</button>
+         </div>
+
+         <div class="float-left">
+         <a href="{% url 'home'%}" class="btn btn-block bg-gradient-secondary">Cancelar</a>
+         </div>
+      </form>
+   </div>
+   <!-- /.card-body -->
+</div>
+
+{% endblock content %}
