@@ -93,13 +93,22 @@
          Backup
       </h5>
       <div class="col">
+         {% if not solic_pendente %}
          <a href="{% url 'backuprequest' client_id client_cat 1 %}" class="btn btn-info btn-block">
+         {% else %}
+         <a class="btn btn-info btn-block">
+         {% endif %}
          <i class="fas fa-database"></i>
          <span class="align-center">Solicitar</span> 
          </a>
       </div>
       <div class="col">
-         <a class="btn btn-success btn-block" href="{% url 'backup_delivery' client_id client_cat 1 request.user.id %}">
+         {% if solic_pendente %}
+         <a class="btn btn-success btn-block" href="{% url 'backup_delivery' client_id client_cat 1 request.user.id %}">         
+         {% else %}
+         <a class="btn btn-success btn-block">
+         {% endif %}
+         
             <i class="fas fa-plus-circle block"></i>
             Atender
          </a>
@@ -107,7 +116,7 @@
       {% comment %} <div class="col mt-lg-0 mt-md-0 mt-1 col-lg-3 col-md-3 col-sm-12"> {% endcomment %}
       <div class="col-12 col-lg-3 col-md-3 mt-1 mt-md-0 mt-lg-0">
          <div class="input-group block">
-            <input type="text" class="form-control" value="C:\Minha pasta\Qualquer coisa">
+            <input type="text" class="form-control" value="{{last_location}}">
             <div class="input-group-append">
                <a href="#" title="Copiar" class="btn block border-top border-right border-bottom">
                <i class="fas fa-check"></i>

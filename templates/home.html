@@ -103,7 +103,7 @@
                   </div>
 
                   <div class="col-lg-3 border-bottom pb-1">
-                      <b>Último Backup</b>
+                      <b>Última solicitação</b>
                   </div>
 
                   <div class="col-lg-2 border-bottom pb-1">
@@ -115,30 +115,40 @@
               <!-- /RowFin -->
 
 
-            {% for client in allClients %}
+            {% for client in clients %}
 
               <!-- RowIn -->
               <div class="row mt-1">
                   <div class="col border-bottom pb-1">
-                      <span class="align-center">{{client.client.name}} {{client.categorie.name}}</span>
+                      <span class="align-center">{{client.client}} {{client.category}}</span>
                   </div>
                   
                   <div class="col-lg-2 border-bottom pb-1">
-                      <a class="btn-sm btn-info" href="{% url 'backuprequest' client.client.id client.categorie.id 2 %}">
+                    {% if client.status == 'F' %}
+                      <a class="btn-sm btn-info" href="{% url 'backuprequest' client.client_id client.categorie_id 2 %}">
+                    {% else %}
+                      <a class="btn-sm btn-info">
+                    {% endif %}
+
+                      {% comment %} <a class="btn-sm btn-info" href="{% url 'backuprequest' client.client_id client.categorie_id 2 %}"> {% endcomment %}
                         <i class="fas fa-database align-center"></i>
                         <span class="align-center">Solicitar</span>
                       </a>
                   </div>
 
                   <div class="col-lg-2 border-bottom pb-1">
-                      <a class="btn-sm btn-success" href="{% url 'backup_delivery' client.client.id client.categorie.id 2 request.user.id %}">
+                      {% if client.status == "P" %}
+                      <a class="btn-sm btn-success" href="{% url 'backup_delivery' client.client_id client.categorie_id 2 request.user.id %}">
+                      {% else %}
+                      <a class="btn-sm btn-success">
+                      {% endif %}
                         <i class="fas fa-plus-circle"></i>
                         Atender
                       </a>
                   </div>
 
                   <div class="col-lg-3 border-bottom pb-1">
-                      <span>{{client.client.date_created|date:"d/m/Y h:i:s"}} </span>
+                      <span>{{client.solic_date|date:"d/m/Y h:i:s"}} </span>
                   </div>
 
                   <div class="col-lg-2 border-bottom pb-1">
@@ -149,14 +159,14 @@
 
                     &nbsp;
 
-                    <a class="btn-sm btn-info" href="{% url 'client' client.client.id client.categorie.id %}">
+                    <a class="btn-sm btn-info" href="{% url 'client' client.client_id client.categorie_id %}">
                       <i class="fas fa-user-tie"></i>
                     </a>
 
                     &nbsp;
 
-                    <a class="btn-sm btn-info" data-toggle="collapse" href="#{{client.categorie.name}}{{client.client.div_id}}" role="button" 
-                    aria-expanded="false" aria-controls="{{client.categorie.name}}{{client.client.div_id}}" style="color: #000;">
+                    <a class="btn-sm btn-info" data-toggle="collapse" href="#{{client.category}}{{client.div_id}}" role="button" 
+                    aria-expanded="false" aria-controls="{{client.category}}{{client.div_id}}" style="color: #000;">
                       <i class="fas fa-plus"></i>
                     </a>
 
@@ -164,7 +174,7 @@
 
                   <div class="container-fluid">
 
-                  <div class="collapse" id="{{client.categorie.name}}{{client.client.div_id}}" style="border: 0;">
+                  <div class="collapse" id="{{client.category}}{{client.div_id}}" style="border: 0;">
                       <div class="row mt-2">
                               
                           <div class="card col-lg-4">
@@ -305,5 +315,22 @@
 
 </div>
 <!-- / Principal -->
+
+{% comment %} <div>
+
+
+    {% for linha in clients  %}
+        <p>
+        -->
+        {{linha.client_id}}
+        <--
+        {% for column, value in linha.items %}
+            {{column}} : {{value}}
+        {% endfor %}
+        </p>
+    {% endfor %}
+
+
+</div> {% endcomment %}
 
  {% endblock content %}

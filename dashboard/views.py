@@ -11,10 +11,14 @@ from django.contrib.auth.models import User
 
 import re
 
+import datetime
+
 # class DricaPageView(TemplateView):
 #     template_name = 'dri.html'
 
+# Minhas Funções:
 from .my_func import *
+from .my_queries import *
 
     
 @login_required(login_url='login')
@@ -119,12 +123,14 @@ def dricaTeste(request):
 def homePage(request):
     categories = ClientCategory.objects.all()
     pagetitle = 'Dashboard'
+    clients = dashClients()
 
     context = {
         'menu':mainMenu(),
         'allClients':getClient(), 
         'pagetitle':pagetitle,
         'categories':categories,
+        'clients': clients,
         }
     return render(request, 'home.html', context)
 
@@ -276,6 +282,30 @@ def clientPage(request, client_id, client_cat):
     backups = ClientBackup.objects.filter(client=clientProfile).order_by('-solic_date')
     ultima = getClientVersion(clientProfile, 2)
 
+    # Usado na função do botão solicitar e atender...    
+    try:
+        if backups[0].status == 'P':
+            last_location = (backups[1].destination.address + ' : ' 
+            + backups[1].destination.user
+            + '@'
+            + backups[1].destination.password
+            + ' : '
+            + backups[1].localizacao )
+            solic_pendente = True
+        else:
+            last_location = (backups[0].destination.address + ' : ' 
+            + backups[0].destination.user
+            + '@'
+            + backups[0].destination.password
+            + ' : '
+            + backups[0].localizacao )
+
+            solic_pendente = False
+    except:
+        solic_pendente = False
+        last_location = 'Nenhum backup realizado!'
+
+
     if request.POST:
         print(request.POST)
         tipo = request.POST['tipo']
@@ -382,7 +412,9 @@ def clientPage(request, client_id, client_cat):
         'versions':versions, 
         'backups':backups,
         'ultima':ultima,
-        'script':script
+        'script':script,
+        'solic_pendente':solic_pendente,
+        'last_location': last_location
     }
 
     return render(request, 'client_view.html', context)
@@ -420,7 +452,7 @@ def backupRequest(request, client_id, client_cat, user_source):
                     }
             return render(request, 'error_01.html', context)
         else:
-            if(user_source==1):
+            if(user_source=='1'):
                 return redirect('client', client_id=client_id, client_cat=client_cat)
             else:
                 return redirect('home')
@@ -452,14 +484,16 @@ def storageList(request):
 
     # Meus CSS's
     assetscss = ('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css,'
-    +'plugins/datatables-responsive/css/responsive.bootstrap4.min.css')
+    +'plugins/datatables-responsive/css/responsive.bootstrap4.min.css'
+    )
 
     # Meus JS's
     assetsjs =('plugins/datatables/jquery.dataTables.min.js,' 
     +'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js,'
     +'plugins/datatables-responsive/js/dataTables.responsive.min.js,'
     +'plugins/datatables-responsive/js/responsive.bootstrap4.min.js,'
-    +'dist/js/data_tables_storage_list.js')
+    +'dist/js/data_tables_storage_list.js'
+    )
 
     context = {
         'assetscss':assetscss, 
@@ -478,11 +512,15 @@ def storageList(request):
 def backupDelivery(request, client_id, client_cat, user_source, user_id):
     clientProfile = getClient(client_cat, client_id)
     pagetitle = clientProfile.client.name + ' / ' + clientProfile.categorie.name +' ' + user_source
-    user = User.objects.get(id=user_id)
+    
     destinations = BackupDestination.objects.all()
 
     # Meus CSS's
-    assetscss = ('dist/css/select-new.css')
+    assetscss = ('dist/css/select-new.css,'
+    +'plugins/toastr/toastr.min.css')
+
+    # Meus JS's:
+    assestsjs = 'plugins/toastr/toastr.min.js'
 
     #status : mudar para finalizado
     #data : automatica
@@ -492,11 +530,36 @@ def backupDelivery(request, client_id, client_cat, user_source, user_id):
         'pagetitle': pagetitle,
         'destinations': destinations,
         'assetscss': assetscss,
+        'assetsjs': assestsjs
     }
 
 
     if (request.POST):
-        print(request.POST)
+        if request.POST['destination'] == 'Escolha uma das opções abaixo:':
+            messages.warning(request, 'Você precisa escolher uma opção')
+        else:
+            print("Iniciar gravação", request.POST)
+            date = request.POST['delivery_date'].split()
+            date2 = datetime.datetime(int(date[0]), int(date[1]), int(date[2]), int(date[3]), int(date[4]), int(date[5]))
+            user = User.objects.get(id=request.POST['user'])
+            dest = BackupDestination.objects.get(id=request.POST['destination'])
+            location = request.POST['location']
+
+            save = saveBackupDelivery(client=clientProfile, date=date2, user=user, destination=dest, location=location)
+            if save:
+                if(user_source=='1'):
+                    return redirect('client', client_id=client_id, client_cat=client_cat)
+                else:
+                    return redirect('home')
+            else:
+                print("Renderizar página de erro...")
+                context = {
+                        'menu':mainMenu(),
+                        'pagetitle':'Erro', 
+                        'message':'Parece que deu erro! Tem que ver isso aí...'
+                        }
+                return render(request, 'error_01.html', context)
+
 
 
     return render(request, 'client_backup_delivery.html', context)

@@ -26,7 +26,8 @@
             <div class="input-group-prepend">         
                <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
             </div>
-            <input type="text" value="{% now "d/m/Y h:i:s" %}" name="delivery_date" class="form-control" placeholder="{% now "d/m/Y h:i:s" %}" readonly="">
+            <input type="text" class="form-control" placeholder="{% now "d/m/Y H:i:s" %}" disabled>
+            <input type="text" value="{% now "Y m d h i s" %}" name="delivery_date" class="form-control" placeholder="{% now "d/m/Y H:i:s" %}" hidden>
          </div>
 
          <div class="form-group form-group-new">

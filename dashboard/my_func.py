@@ -1,6 +1,8 @@
 from .models import *
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+
 
 def getClient(categorie='all', client='all'):
     if (categorie=='all' and client=='all'):
@@ -55,17 +57,27 @@ def saveBackupRequest(client, version, user):
         ClientBackup.objects.create(client=client, solic_version=version, solic_user=user, status='P')
         return True
 
-# def saveBackupDelivery(date, user, destination, location):
-#     #Verificar se existe solicitação pendente
-
-#     #Salvar
-
-#     #Returnar true
-
-#     #Se não existe, returnar falso e renderizar página de erro
-
+def saveBackupDelivery(client, date, user, destination, location):
+    #Verificar se existe solicitação pendente
+    #Salvar
     
-
+    try:
+        delivery = ClientBackup.objects.get(client=client, status='P')
+        delivery.atend_date = date
+        delivery.atend_user = user
+        delivery.status = 'F'
+        delivery.destination = destination
+        delivery.localizacao = location
+        try:
+            delivery.save()
+            return True
+        except:
+            print("Deu erro, não salvou!")
+    except:
+        print("Deu erro, verificar porque o get não trouxe cliente ou trouxe + de 1.")
+        print("Renderizar página de erro...")
+        return False
+    
 def registerUser(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -80,7 +92,7 @@ def registerUser(request):
                 user = form.cleaned_data.get('username')
                 messages.success(request, 'A conta ' + user +' foi criada com sucesso. Comunique o administrador para que seja aprovada.')
                 return redirect('login')
-        
+
         context ={'form':form}
         return render(request, 'register.html', context)
 

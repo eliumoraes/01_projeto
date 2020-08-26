@@ -178,4 +178,8 @@ Rede Interna
 
 Inverter barra ao exibir na página do cliente.
 
+
+Verificar se o cliente tem solicitação pendente
+Caso sim exibir o botão atender
+Caso não, deixar inativo...
 '''
