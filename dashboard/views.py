@@ -124,6 +124,9 @@ def homePage(request):
     categories = ClientCategory.objects.all()
     pagetitle = 'Dashboard'
     clients = dashClients()
+    totais = len(ClientBackup.objects.all())
+    pendentes = len(ClientBackup.objects.filter(status='P'))
+    finalizados = len(ClientBackup.objects.filter(status='F'))
 
     context = {
         'menu':mainMenu(),
@@ -131,6 +134,9 @@ def homePage(request):
         'pagetitle':pagetitle,
         'categories':categories,
         'clients': clients,
+        'totais': totais,
+        'pendentes': pendentes,
+        'finalizados': finalizados
         }
     return render(request, 'home.html', context)
 
@@ -281,8 +287,12 @@ def clientPage(request, client_id, client_cat):
     versions = getClientVersion(clientProfile, 1) # Passa a relação acima e recebe as versões
     backups = ClientBackup.objects.filter(client=clientProfile).order_by('-solic_date')
     ultima = getClientVersion(clientProfile, 2)
+    finalizados = len(ClientBackup.objects.filter(status='F', client=clientProfile))
+    totais = len(ClientBackup.objects.filter(client=clientProfile))
+    cancelados = len(ClientBackup.objects.filter(status='C', client=clientProfile))
 
-    # Usado na função do botão solicitar e atender...    
+    # solic_pendente Usado na função do botão solicitar e atender
+    # last_location usado para identificar o lugar onde está salvo
     try:
         if backups[0].status == 'P':
             last_location = (backups[1].destination.address + ' : ' 
@@ -365,6 +375,7 @@ def clientPage(request, client_id, client_cat):
     assetscss = ('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css,'
     +'plugins/datatables-responsive/css/responsive.bootstrap4.min.css,'
     +'plugins/select2/css/select2.min.css,'
+    +'plugins/toastr/toastr.min.css,'
     +'dist/css/select-new.css')
 
     # Meus JS's
@@ -372,7 +383,10 @@ def clientPage(request, client_id, client_cat):
     +'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js,'
     +'plugins/datatables-responsive/js/dataTables.responsive.min.js,'
     +'plugins/datatables-responsive/js/responsive.bootstrap4.min.js,'
-    +'dist/js/data_tables_language.js,'
+    +'dist/js/data_tables_update.js,'
+    +'dist/js/data_tables_backup.js,'
+    +'dist/js/client_copy.js,'
+    +'plugins/toastr/toastr.min.js,'
     +'plugins/select2/js/select2.full.min.js')
 
     catscript = ''
@@ -414,7 +428,10 @@ def clientPage(request, client_id, client_cat):
         'ultima':ultima,
         'script':script,
         'solic_pendente':solic_pendente,
-        'last_location': last_location
+        'last_location': last_location,
+        'finalizados': finalizados,
+        'totais': totais,
+        'cancelados': cancelados
     }
 
     return render(request, 'client_view.html', context)

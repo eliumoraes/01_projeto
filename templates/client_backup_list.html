@@ -1,23 +1,23 @@
-<table id="users_table_list" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="users_table_list_info">
+<table id="backup_list" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="backup_list_info">
     
     <thead>
         <tr role="row">
-            <th class="sorting_desc" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-sort="descending" aria-label="Rendering engine: activate to sort column descending">Solicitação</th>
-            <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Versão</th>
-            <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Solicitante</th>
-            <th class="sorting_asc" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Atendimento</th>
-            <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Atendente</th>
-            <th class="sorting" tabindex="0" aria-controls="users_table_list" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
+            <th tabindex="0" rowspan="1" colspan="1">Início</th>
+            <th tabindex="0" rowspan="1" colspan="1">Versão</th>
+            <th tabindex="0" rowspan="1" colspan="1">Solicitante</th>
+            <th tabindex="0" rowspan="1" colspan="1">Término</th>
+            <th tabindex="0" rowspan="1" colspan="1">Atendente</th>
+            <th tabindex="0" rowspan="1" colspan="1">Status</th>
         </tr>
     </thead>
 
     <tbody>
     
         {% comment %} <tr role="row" class="{% cycle 'odd' 'even' %}">
-            <td class="sorting_1" tabindex="0">10/10/2020</td>
+            <td>10/10/2020</td>
             <td>9.44</td>
             <td>Pessoa qualquer</td>
-            <td class="sorting_1" tabindex="0">10/10/2020</td>
+            <td>10/10/2020</td>
             <td>Qualquer pessoa</td>       
             <td>Finalizado</td>             
         </tr> {% endcomment %}
@@ -25,11 +25,11 @@
         {% for blinha in backups %}
         
         <tr role="row" class="{% cycle 'odd' 'even' %}">
-            <td class="sorting_1" tabindex="0">{{blinha.solic_date|date:"d/m/Y H:i:s"}}</td>
+            <td>{{blinha.solic_date|date:"d/m/Y H:i:s"}}</td>
             <td>{{blinha.solic_version.version.version}}</td>
             <td>{{blinha.solic_user.first_name}} {{blinha.solic_user.last_name}}</td>
-            <td class="sorting_1" tabindex="0">{{blinha.atend_date|date:"d/m/Y H:i:s"|default_if_none:""}}</td>
-            <td>{{blinha.atend_user.first_name}} {{blinha.atend_user.last_name}}</td>     
+            <td>{{blinha.atend_date|date:"d/m/Y H:i:s"|default_if_none:""}}</td>
+            <td>{{blinha.atend_user.first_name}} {{blinha.atend_user.last_name}}</td>
             <td>{{blinha.get_status_display}}</td>             
         </tr>
 
@@ -39,10 +39,10 @@
 
     <tfoot>
         <tr>
-            <th rowspan="1" colspan="1">Solicitação</th>
+            <th rowspan="1" colspan="1">Início</th>
             <th rowspan="1" colspan="1">Versão</th>
             <th rowspan="1" colspan="1">Solicitante</th>
-            <th rowspan="1" colspan="1">Atendimento</th>
+            <th rowspan="1" colspan="1">Término</th>
             <th rowspan="1" colspan="1">Atendente</th>
             <th rowspan="1" colspan="1">Status</th>
         </tr>
