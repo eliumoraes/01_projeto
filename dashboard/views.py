@@ -127,6 +127,9 @@ def homePage(request):
     totais = len(ClientBackup.objects.all())
     pendentes = len(ClientBackup.objects.filter(status='P'))
     finalizados = len(ClientBackup.objects.filter(status='F'))
+    assetscss = 'plugins/toastr/toastr.min.css'
+    assetsjs = ('dist/js/client_copy.js,'
+    +'plugins/toastr/toastr.min.js')
 
     context = {
         'menu':mainMenu(),
@@ -136,7 +139,9 @@ def homePage(request):
         'clients': clients,
         'totais': totais,
         'pendentes': pendentes,
-        'finalizados': finalizados
+        'finalizados': finalizados,
+        'assetscss': assetscss,
+        'assetsjs': assetsjs
         }
     return render(request, 'home.html', context)
 
@@ -295,20 +300,24 @@ def clientPage(request, client_id, client_cat):
     # last_location usado para identificar o lugar onde está salvo
     try:
         if backups[0].status == 'P':
-            last_location = (backups[1].destination.address + ' : ' 
+            last_location = (backups[1].destination.address 
+            + backups[1].localizacao
+            + ' : ' 
             + backups[1].destination.user
             + '@'
             + backups[1].destination.password
-            + ' : '
-            + backups[1].localizacao )
+            
+             )
             solic_pendente = True
         else:
-            last_location = (backups[0].destination.address + ' : ' 
+            last_location = (backups[0].destination.address 
+            + backups[0].localizacao
+            + ' : ' 
             + backups[0].destination.user
             + '@'
             + backups[0].destination.password
-            + ' : '
-            + backups[0].localizacao )
+            
+             )
 
             solic_pendente = False
     except:
@@ -441,7 +450,7 @@ def clientPage(request, client_id, client_cat):
 @login_required(login_url='login')
 def backupRequest(request, client_id, client_cat, user_source):
     clientProfile = getClient(client_cat, client_id)
-    pagetitle = clientProfile.client.name + ' / ' + clientProfile.categorie.name +' ' + user_source
+    pagetitle = clientProfile.client.name + ' / ' + clientProfile.categorie.name
     ultima = getClientVersion(clientProfile, 2)
 
     context = {
@@ -485,13 +494,77 @@ def storageNew(request):
         #'assetscss':assetscss, 
         #'assetsjs':assetsjs,|
         'menu':mainMenu(),
-        'pagetitle': "Criar local"
+        'pagetitle': "Criar local",
+        'tipo': 'criar'
     }
 
     if (request.POST):
         print(request.POST)
+        try:
+            BackupDestination.objects.create(
+                name= request.POST['storage_name'],
+                user= request.POST['storage_user'],
+                password= request.POST['storage_password'],
+                address= request.POST['storage_address'],
+                obs= request.POST['storage_obs']
+            )
+            return redirect('storage_list')
+        except:
+            print("Parece que deu erro...")
 
     return render(request, 'storage_create.html', context)
+
+# -------------- PÁGINA PARA EDITAR LOCAIS DE ARMAZENAMENTO -------------- #
+@login_required(login_url='login')
+def storageEdit(request, storage_id):
+    storage = BackupDestination.objects.get(id=storage_id)
+
+
+    context = {
+        #'assetscss':assetscss, 
+        #'assetsjs':assetsjs,|
+        'menu':mainMenu(),
+        'pagetitle': "Editar local",
+        'tipo': 'editar',
+        'storage':storage
+    }
+
+    if (request.POST):
+        print(request.POST)
+        try:            
+            storage.name= request.POST['storage_name']
+            storage.user= request.POST['storage_user']
+            storage.password= request.POST['storage_password']
+            storage.address= request.POST['storage_address']
+            storage.obs= request.POST['storage_obs']
+
+            storage.save()
+            
+            return redirect('storage_list')
+        except:
+            print("Parece que deu erro...")
+
+    return render(request, 'storage_create.html', context)
+
+# -------------- FUNÇÃO DE ATIVAÇÃO/INATIVAÇÃO DE ARMAZENAMENTO -------------- #
+@login_required(login_url='login')
+def storageOnOff(request, storage_id, status):
+    status = True if status=='True' else False
+    storage = BackupDestination.objects.get(id=storage_id)
+    try:
+        if status:
+            storage.status = False
+        else:
+            storage.status = True
+
+        storage.save()
+        return redirect('storage_list')
+    except:
+        print("Não conseguiu salvar")
+
+
+        
+
 
 # -------------- PÁGINA PARA LISTAR LOCAIS DE ARMAZENAMENTO -------------- #
 @login_required(login_url='login')
@@ -528,9 +601,9 @@ def storageList(request):
 @login_required(login_url='login')
 def backupDelivery(request, client_id, client_cat, user_source, user_id):
     clientProfile = getClient(client_cat, client_id)
-    pagetitle = clientProfile.client.name + ' / ' + clientProfile.categorie.name +' ' + user_source
+    pagetitle = clientProfile.client.name + ' / ' + clientProfile.categorie.name
     
-    destinations = BackupDestination.objects.all()
+    destinations = BackupDestination.objects.filter(status=True)
 
     # Meus CSS's
     assetscss = ('dist/css/select-new.css,'

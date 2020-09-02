@@ -167,6 +167,8 @@ Fazer funcionar o botão atender
 Desenhar a tela de atendimento
 
 Finalizar tela de locais: Salvar, apresentar lista ao salvar,
+
+
 criar uma página de edição, criar função de inativação;
 
 Criar função de inverter barra
@@ -182,4 +184,22 @@ Inverter barra ao exibir na página do cliente.
 Verificar se o cliente tem solicitação pendente
 Caso sim exibir o botão atender
 Caso não, deixar inativo...
+
+Refazer a ordem do local onde o backup está salvo: \\192.168.0.137\Bancos de dados\eliu\
+colocar a opção de copiar e colar na página dashboard
+
+-----
+
+INICIAR A FUNÇÃO DE CRIAÇÃO DO MODELO DE SERVIÇOS
+
+
+
+
+
+
+Criar opção de contatos na página do cliente:
+Backup, Serviços, Atualizações, Contatos
+
+Ou jogar contatos como parte do serviços...
+Analisar melhor...
 '''

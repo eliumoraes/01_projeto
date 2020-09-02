@@ -1,6 +1,10 @@
-function clientCopy() {
+function clientCopy(id='') {
     /* Get the text field */
-    var copyText = document.getElementById("last_location");
+    var copyText = document.getElementById(("last_location").concat(id));
+
+    if (id != ''){
+      copyText.style.display = "block";
+    }
   
     /* Select the text field */
     copyText.select();
@@ -8,7 +12,11 @@ function clientCopy() {
   
     /* Copy the text inside the text field */
     document.execCommand("copy");
+
+    if (id != ''){
+      copyText.style.display = "none";
+    }
   
     /* Chama um toast e exibe mensagem dizendo o que foi copiado! */
-    toastr.info("Copiado: " + copyText.value);
+    toastr.info("Copiado: <br>" + copyText.value);
   }

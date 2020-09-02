@@ -26,14 +26,24 @@
             <div class="input-group-prepend">         
                <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
             </div>
+            {% if tipo == "criar" %}
             <input type="text" class="form-control" name="storage_name" placeholder="Nome do local">
+            {% else %}
+            <input type="text" class="form-control" name="storage_name" value="{{storage.name}}">
+            {% endif %}
+            
          </div>
 
          <div class="input-group mb-3">
             <div class="input-group-prepend">
                <span class="input-group-text"><i class="fas fa-cogs"></i></span>
             </div>
+            {% if tipo == "criar" %}
             <input type="text" class="form-control" name="storage_user" placeholder="Usuário">
+            {% else %}
+            <input type="text" class="form-control" name="storage_user" value="{{storage.user}}">
+            {% endif %}
+            
 
          </div>
 
@@ -41,21 +51,35 @@
             <div class="input-group-prepend">
                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
             </div>
+            {% if tipo == "criar" %}
             <input type="text" class="form-control" name="storage_password" placeholder="Senha">
+            {% else %}
+            <input type="text" class="form-control" name="storage_password" value="{{storage.password}}">
+            {% endif %}
+            
          </div>
 
          <div class="input-group mb-3">
             <div class="input-group-prepend">
                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
             </div>
-            <input type="text" class="form-control" name="storage_adress" placeholder="Endereço">
+            {% if tipo == "criar" %}
+            <input type="text" class="form-control" name="storage_address" placeholder="Endereço">
+            {% else %}
+            <input type="text" class="form-control" name="storage_address" value="{{storage.address}}">
+            {% endif %}
+            
          </div>
 
          <div class="input-group mb-3">
             <div class="col-12" style="padding:0;">
                <!-- textarea -->
                <div class="form-group" style="padding:0;">
+               {% if tipo == "criar" %}
                   <textarea name="storage_obs" class="form-control" rows="3" placeholder="Digite aqui as observações que se fizerem necessárias."></textarea>
+               {% else %}
+                  <textarea name="storage_obs" class="form-control" rows="3">{{storage.obs}}</textarea>
+               {% endif %}                  
                </div>
             </div>
          </div>
@@ -65,7 +89,7 @@
          </div>
 
          <div class="float-left">
-         <a href="{% url 'home'%}" class="btn btn-block bg-gradient-secondary">Cancelar</a>
+         <a href="{% url 'storage_list'%}" class="btn btn-block bg-gradient-secondary">Cancelar</a>
          </div>
       </form>
    </div>
