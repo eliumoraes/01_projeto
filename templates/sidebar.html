@@ -214,59 +214,23 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree spaceicon"></i>
+              <i class="fas fa-cash-register spaceicon"></i>
               <p>
-                Definições
+                Serviços
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General</p>
+                <a href="{% url 'services_create' %}" class="nav-link">
+                  <i class="fas fa-briefcase-medical spaceicon"></i>
+                  <p>Registrar serviço</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Icons</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Buttons</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Sliders</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Modals & Alerts</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Navbar & Tabs</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Timeline</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ribbons</p>
+                  <i class="fas fa-briefcase spaceicon"></i>
+                  <p>Lista</p>
                 </a>
               </li>
             </ul>
@@ -282,28 +246,17 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{% url 'storage_create'%}" class="nav-link">
-                  <i class="fas fa-folder-plus"></i>
+                  <i class="fas fa-folder-plus spaceicon"></i>
                   <p>Registrar novo local</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{% url 'storage_list' %}" class="nav-link">
-                  <i class="fas fa-folder-open"></i>
+                  <i class="fas fa-folder-open spaceicon"></i>
                   <p>Locais</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Editors</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Validation</p>
-                </a>
-              </li>
+                           
             </ul>
           </li>
 

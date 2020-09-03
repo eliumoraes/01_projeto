@@ -653,3 +653,16 @@ def backupDelivery(request, client_id, client_cat, user_source, user_id):
 
 
     return render(request, 'client_backup_delivery.html', context)
+
+def servicesCreate(request):
+
+    assetscss = ('dist/css/select-new.css')
+
+    context = {
+    'menu': mainMenu(),
+    'pagetitle': 'Criar modelo de serviço',
+    'assetscss': assetscss,
+    # 'assetsjs': assestsjs
+    }
+
+    return render(request, 'services_create.html', context)

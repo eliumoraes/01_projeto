@@ -31,6 +31,8 @@ urlpatterns = [
     path('storage/list/', views.storageList, name='storage_list'),
     path('storage/edit/<str:storage_id>/', views.storageEdit, name='storage_edit'),
     path('storage/edit/<str:storage_id>/<str:status>/', views.storageOnOff, name='storage_onoff'),
+
+    path('services/create/', views.servicesCreate, name='services_create'),
     
     
 ] 

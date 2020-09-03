@@ -192,14 +192,15 @@ colocar a opção de copiar e colar na página dashboard
 
 INICIAR A FUNÇÃO DE CRIAÇÃO DO MODELO DE SERVIÇOS
 
-
-
-
-
-
 Criar opção de contatos na página do cliente:
 Backup, Serviços, Atualizações, Contatos
 
 Ou jogar contatos como parte do serviços...
 Analisar melhor...
+
+
+Acertar cores dos menus
+
+
+
 '''
