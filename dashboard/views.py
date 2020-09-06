@@ -657,12 +657,13 @@ def backupDelivery(request, client_id, client_cat, user_source, user_id):
 def servicesCreate(request):
 
     assetscss = ('dist/css/select-new.css')
+    assetsjs = ('dist/js/services_create.js')
 
     context = {
     'menu': mainMenu(),
     'pagetitle': 'Criar modelo de serviço',
     'assetscss': assetscss,
-    # 'assetsjs': assestsjs
+    'assetsjs': assetsjs
     }
 
     return render(request, 'services_create.html', context)

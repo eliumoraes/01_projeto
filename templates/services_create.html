@@ -20,49 +20,60 @@
       <h3 class="card-title">Definição do serviço</h3>
    </div>
    <div class="card-body">
-      <form action="" method="POST">
-         {% csrf_token %}
+      {% comment %} <form action="" method="POST">
 
-         <div class="row">
+         {% csrf_token %} {% endcomment %}
 
-         <div class="form-group form-group-new col-8">
+         {% comment %} Aqui pra cima {% endcomment %}
 
-         <div class="input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
-               </div>
-
-               <select class="custom-select" name="destination">
-                  <option selected="">Escolha uma das opções abaixo:</option>
-
-                  <option value="1">Nome do serviço</option>
+         <div class="form-row align-items-center mb-3">
+            <div class="col-3">
+                  <div class="btn-group btn-block">
+                  <button type="button" id="buttonHead" class="btn btn-primary">Escolha</button>
+                  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
                   
-                  <option value="1">Campo texto</option>
-                  
-                  <option value="2">Texto Fixo</option>
-                  
-               </select>        
+                  </button>
 
-         </div>
-            </div>
-
-
-         <div class="col-12 mb-3">
-            <div class="input-group">
-                  <input type="text" class="form-control" value="Inserir Texto que ficará como exemplo aqui!">
-                  <div class="input-group-append">
-                     <button class="btn btn-outline-secondary iconpicker dropdown-toggle" data-icon="fas fa-home" role="iconpicker" data-original-title="" title="" aria-describedby="popover536568"><i class="fab fa-keybase"></i><input type="hidden" value="fab fa-keybase"><span class="caret"></span></button>
+                  <div class="dropdown-menu">
+                     <a class="dropdown-item" onclick="replaceButtonText('buttonHead', 'Texto Linha')">Texto Linha</a>
+                     <a class="dropdown-item" onclick="replaceButtonText('buttonHead', 'Texto Multilinha (fixo)')">Texto Multilinha (fixo)</a>
                   </div>
+               </div>
+            </div>
+
+            <div class="col-1">
+               <button id="serviceIcon" class="btn btn-primary btn-block" data-icon="fas fa-home" role="iconpicker" enabled></button>
+            </div>
+
+            <div class="col-7">
+               <input type="text" class="form-control" id="inlineFormInput" placeholder="Nome do campo">
+            </div>
+
+            <div class="col-1">
+               <button onclick="serviceElement()" class="btn btn-primary btn-block"><i class="fas fa-plus-square"></i></button>
             </div>
          </div>
 
-         <div class="col-2">
-            <a class="btn btn-success" href="#">            
-               <i class="fas fa-plus-circle"></i>
-               Inserir
-            </a>
+         <div class="callout callout-info mb-3">
+            <h5>Dicas:</h5>
+
+            <p>Abaixo você verá uma previsão do serviço. <br>
+            Escolha um nome para o mesmo e defina os elementos que irão compô-lo.<br>
+            Defina os ícones para os campos que os contém antes de salvar.</p>
          </div>
-      </form>
+
+         <div class="input-group mb-3">
+            <input name="service_name" type="text" class="form-control is-valid" placeholder="Nome do serviço">
+         </div>
+
+         <div class="row" id="service_body">
+
+            
+
+         </div>
+
+         
+      {% comment %} </form> {% endcomment %}
    </div>
    <!-- /.card-body -->
 </div>
