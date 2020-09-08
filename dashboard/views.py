@@ -656,8 +656,12 @@ def backupDelivery(request, client_id, client_cat, user_source, user_id):
 
 def servicesCreate(request):
 
-    assetscss = ('dist/css/select-new.css')
-    assetsjs = ('dist/js/services_create.js')
+    assetscss = ('dist/css/select-new.css,'
+                'plugins/summernote/summernote-bs4.css')
+    assetsjs = ('plugins/summernote/summernote-bs4.min.js,'
+                'dist/js/services_create.js'
+                )
+    
 
     context = {
     'menu': mainMenu(),
