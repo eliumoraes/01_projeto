@@ -1,10 +1,11 @@
-Dicas sobre o GIT -->
+INSTRUÇÕES DO SISTEMA E OUTRAS COISAS RELACIONADAS!
 
 Instalar o projeto:
 
 1. Requisitos:
 
     Instalar o Python 3.8.x (Baixar do site oficial, x representa qualquer número)
+        Marcar o PATH durante a instalação, seguir o padrão de todas as outras.
     Atualizar o pip com o comando no terminal:
         python -m pip install --upgrade pip
     Instalar o GIT do site oficial, avançar, avançar, finalizar seguir padrão.
@@ -20,8 +21,9 @@ Instalar o projeto:
     Abrir a pasta 01_projeto
     Instalar usando o comando:
         pipenv install --ignore-pipfile
+        python manage.py miagrate
 
-3. Iniciar o projeto:
+3. Iniciar o projeto pela primeira vez:
     Ir até a pasta 01_projeto pelo terminal
     Digitar o comando:
         pipenv shell
@@ -35,6 +37,7 @@ Instalar o projeto:
 4. Encerrar o sistema:
     No terminal que está aberto aperte CTRL+C para fechar o sistema do Django
     Digite exit para encerrar o pipenv
+    feche o terminal
     
 
 
