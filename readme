@@ -45,7 +45,27 @@ Instalar o projeto:
     Rodar o comando
         git fetch upstream        
         git merge upstream/master
+    
+    Rodar o PIPENV e migrar:
+        Pipenv shell
+        python manage.py migrate
 
+
+Repita o passo 5 sempre que houver necessidade de atualizar o sistema.
+---
+
+Para rodar o projeto entrar no diretório 01_projeto pelo terminar, rodar o comando:
+    pipenv shell
+    python manage.py runserver 192.168.SEU.IP:8000
+    
+    (Troque pelo SEU IP Padrão. A porta do Django é 8000, mas pode mudar se quiser.)
+
+Em seguida minimize o terminal e abra o navegador no ip e porta escolhida.
+
+
+--------------------------------------------------------------------------------
+DAQUI PARA BAIXO NÃO PRECISA REALIZAR A LEITURA, SÃO INFORMAÇÕES PARA EU LEMBRAR
+--------------------------------------------------------------------------------
 
 Sobre o GIT -->
 
