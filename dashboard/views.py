@@ -16,6 +16,9 @@ import datetime
 # class DricaPageView(TemplateView):
 #     template_name = 'dri.html'
 
+from django.views.decorators.csrf import ensure_csrf_cookie
+import json
+
 # Minhas Funções:
 from .my_func import *
 from .my_queries import *
@@ -654,6 +657,7 @@ def backupDelivery(request, client_id, client_cat, user_source, user_id):
 
     return render(request, 'client_backup_delivery.html', context)
 
+@ensure_csrf_cookie
 def servicesCreate(request):
 
     assetscss = ('dist/css/select-new.css,'
@@ -661,7 +665,14 @@ def servicesCreate(request):
     assetsjs = ('plugins/summernote/summernote-bs4.min.js,'
                 'dist/js/services_create.js'
                 )
-    
+
+    if request.method == "POST":
+        print("Uai")
+    # if (request):
+    #     data = json.loads(request.body.decode("utf-8"))
+    #     tag = data['tag']
+    #     print(data)
+    #     print(tag)
 
     context = {
     'menu': mainMenu(),

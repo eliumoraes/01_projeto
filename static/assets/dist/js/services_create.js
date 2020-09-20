@@ -179,3 +179,47 @@ function constructMulti(buttonId, text){
   MultiStart();
 
 }
+
+/**
+ * 
+ * Testes de envio de dados com Javascript
+ */
+
+data = JSON.stringify({
+  headline: "Testing",
+  tag: "Testing",
+  background_image: "Testing",
+  content: "Testing",
+  user: 1
+})
+
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+
+let csrftoken = getCookie('csrftoken');
+
+function response(){
+  fetch("/", {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        "X-CSRFToken": csrftoken },
+  })
+}
+
+
+
+
