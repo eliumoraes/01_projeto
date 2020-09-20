@@ -1,5 +1,48 @@
 Dicas sobre o GIT -->
 
+Instalar o projeto:
+
+1. Requisitos:
+
+    Instalar o Python 3.8.x (Baixar do site oficial, x representa qualquer número)
+    Atualizar o pip com o comando no terminal:
+        python -m pip install --upgrade pip
+    Instalar o GIT do site oficial, avançar, avançar, finalizar seguir padrão.
+        https://git-scm.com/downloads
+    Instalar o PostgreSQL 9.6.x na porta 5434 e criar um banco vazio chamado 01_projeto, um usuário assessorpublico e a senha desse usuário 2arquiv3
+    Instalar o pipenv no terminal usando o comando:
+        pip install pipenv
+
+2. Instalação do sistema:
+    Abrir o terminal e seguir até a pasta onde quer instalar.
+    Baixar usando o comando:
+        git clone https://github.com/eliumoraes/01_projeto.git
+    Abrir a pasta 01_projeto
+    Instalar usando o comando:
+        pipenv install --ignore-pipfile
+
+3. Iniciar o projeto:
+    Ir até a pasta 01_projeto pelo terminal
+    Digitar o comando:
+        pipenv shell
+    Criar um usuário administrador na primeira vez que for usar:
+        python manage.py createsuperuser
+    Iniciar o projeto usando o comando:
+        python manage.py runserver 192.168.SEU.IP:8000
+    
+    (Troque pelo SEU IP Padrão. A porta do Django é 8000, mas pode mudar se quiser.)
+
+4. Encerrar o sistema:
+    No terminal que está aberto aperte CTRL+C para fechar o sistema do Django
+    Digite exit para encerrar o pipenv
+    
+
+
+
+
+
+Sobre o GIT -->
+
 1.  Iniciar: 
 
     git pull : Esse comando realiza o download da última versão que estiver no servidor
