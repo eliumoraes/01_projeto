@@ -18,6 +18,8 @@ import datetime
 
 from django.views.decorators.csrf import ensure_csrf_cookie
 import json
+from django.http import JsonResponse
+
 
 # Minhas Funções:
 from .my_func import *
@@ -301,6 +303,7 @@ def clientPage(request, client_id, client_cat):
 
     # solic_pendente Usado na função do botão solicitar e atender
     # last_location usado para identificar o lugar onde está salvo
+
     try:
         if backups[0].status == 'P':
             last_location = (backups[1].destination.address 
@@ -312,6 +315,7 @@ def clientPage(request, client_id, client_cat):
             
              )
             solic_pendente = True
+            print("Entrou no solic_pendente")
         else:
             last_location = (backups[0].destination.address 
             + backups[0].localizacao
@@ -324,8 +328,15 @@ def clientPage(request, client_id, client_cat):
 
             solic_pendente = False
     except:
-        solic_pendente = False
+        try:
+            if backups[0].status == 'P':
+                solic_pendente = True
+            else:
+                solic_pendente = False
+        except:
+            solic_pendente = False
         last_location = 'Nenhum backup realizado!'
+
 
 
     if request.POST:
@@ -666,13 +677,13 @@ def servicesCreate(request):
                 'dist/js/services_create.js'
                 )
 
-    if request.method == "POST":
-        print("Uai")
-    # if (request):
-    #     data = json.loads(request.body.decode("utf-8"))
-    #     tag = data['tag']
-    #     print(data)
-    #     print(tag)
+    # request should be ajax and method should be POST.
+    if request.is_ajax and request.method == "POST":
+        print(request.POST)
+        print(request.is_ajax)
+
+        return JsonResponse({"instance": "Testando"}, status=200)
+
 
     context = {
     'menu': mainMenu(),

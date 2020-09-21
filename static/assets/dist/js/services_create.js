@@ -185,41 +185,46 @@ function constructMulti(buttonId, text){
  * Testes de envio de dados com Javascript
  */
 
-data = JSON.stringify({
-  headline: "Testing",
-  tag: "Testing",
-  background_image: "Testing",
-  content: "Testing",
-  user: 1
-})
 
-function getCookie(name) {
-  var cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-      var cookies = document.cookie.split(';');
-      for (var i = 0; i < cookies.length; i++) {
-          var cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
+$("#friend-form").submit(function (e) {
+  // preventing from page reload and default actions
+  e.preventDefault();
+  // serialize the data for sending the form data.
+  var serializedData = JSON.stringify(serviceList)
+  // make POST ajax call
+  $.ajax({
+      type: 'POST',
+      url: "{% url 'services_create' %}",
+      data: serializedData,
+      success: function (response) {
+        console.log(JSON.parse(response["instance"]))
+          // on successfull creating object
+          // 1. clear the form.
+          // $("#friend-form").trigger('reset');
+          // // 2. focus to nickname input 
+          // $("#id_nick_name").focus();
+
+          // display the newly friend to table.
+          // var instance = JSON.parse(response["instance"]);
+          // var fields = instance[0]["fields"];
+          // $("#my_friends tbody").prepend(
+          //     `<tr>
+          //     <td>${fields["nick_name"]||""}</td>
+          //     <td>${fields["first_name"]||""}</td>
+          //     <td>${fields["last_name"]||""}</td>
+          //     <td>${fields["likes"]||""}</td>
+          //     <td>${fields["dob"]||""}</td>
+          //     <td>${fields["lives_in"]||""}</td>
+          //     </tr>`
+          // )
+      },
+      error: function (response) {
+          // alert the error if any error occured
+          console.log(JSON.parse(response["instance"]))
+          alert(response["responseJSON"]["error"]);
       }
-  }
-  return cookieValue;
-}
-
-let csrftoken = getCookie('csrftoken');
-
-function response(){
-  fetch("/", {
-    method: 'POST',
-    body: data,
-    headers: { 'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-        "X-CSRFToken": csrftoken },
   })
-}
-
+})
 
 
 

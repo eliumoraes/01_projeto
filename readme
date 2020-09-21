@@ -50,7 +50,7 @@ Instalar o projeto:
         git merge upstream/master
     
     Rodar o PIPENV e migrar:
-        Pipenv shell
+        pipenv shell
         python manage.py migrate
 
 

@@ -20,11 +20,7 @@
       <h3 class="card-title">Definição do serviço</h3>
    </div>
    <div class="card-body">
-      {% comment %} <form action="" method="POST">
 
-         {% csrf_token %} {% endcomment %}
-
-         {% comment %} Aqui pra cima {% endcomment %}
          <div id="construct" class="form-row align-items-center mb-3">
             <div class="col-3 mb-3">
                   <div class="btn-group btn-block">
@@ -37,23 +33,7 @@
                      </div>
                </div>
             </div>
-            {% comment %} Texto linha {% endcomment %}
-            {% comment %} <div class="col-1 mb-3">
-               <button id="serviceIcon" class="btn btn-primary btn-block" data-icon="fas fa-home" role="iconpicker" enabled></button>
-            </div>
 
-            <div class="col-7 mb-3">
-               <input type="text" class="form-control" id="inlineFormInput" placeholder="Nome do campo">
-            </div>
-
-            <div class="col-1 mb-3">
-               <button onclick="serviceElement()" class="btn btn-primary btn-block"><i class="fas fa-plus-square"></i></button>
-            </div> {% endcomment %}
-            {% comment %} Texto linha {% endcomment %}
-
-            {% comment %} <div class="col-12 mb-3">
-               <textarea id="multiText" name="" class="form-control" rows="10"></textarea>
-            </div> {% endcomment %}
          </div>
 
          <div class="callout callout-info mb-3">
@@ -67,16 +47,25 @@
          <div class="input-group mb-3">
             <input name="service_name" type="text" class="form-control is-valid" placeholder="Nome do serviço">
          </div>
+         <form id="friend-form" action="" method="POST">
 
-         <div class="row" id="service_body">
+            {% csrf_token %}
+            <div class="row" id="service_body">
 
+               
+
+            </div>
+
+            <div class="float-right">
+            <button type="submit" class="btn btn-block bg-gradient-primary">Enviar</button>
+            </div>
             
+            {% comment %} 
+            <div class="float-right">
+               <a onclick="saveData()" class="btn btn-block bg-gradient-primary">Enviar</a>
+            </div> {% endcomment %}
 
-         </div>
-
-         <div class="float-right">
-            <a onclick="saveData()" class="btn btn-block bg-gradient-primary">Enviar</a>
-         </div>
+         </form>
 
          
       {% comment %} </form> {% endcomment %}
