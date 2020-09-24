@@ -1,22 +1,15 @@
 //Muda o nome do botão de "Escolha" para a função escolhida.
-function replaceButtonText(buttonId, text)
-{
-  if (document.getElementById)
-  {
-    var button=document.getElementById(buttonId);
-    if (button)
-    {
-      if (button.childNodes[0])
+function replaceButtonText(buttonId, text) {
+  if (document.getElementById) {
+    var button = document.getElementById(buttonId);
+    if (button) {
+      if (button.childNodes[0]) {
+        button.childNodes[0].nodeValue = text;
+      } else if (button.value) {
+        button.value = text;
+      } else //if (button.innerHTML)
       {
-        button.childNodes[0].nodeValue=text;
-      }
-      else if (button.value)
-      {
-        button.value=text;
-      }
-      else //if (button.innerHTML)
-      {
-        button.innerHTML=text;
+        button.innerHTML = text;
       }
     }
   }
@@ -28,69 +21,80 @@ function replaceButtonText(buttonId, text)
 
 serviceList = []
 
-function serviceElement(textIn=''){
+function serviceElement(textIn = '') {
   buttonH = document.getElementById('buttonHead');
   elType = buttonH.childNodes[0].nodeValue;
   serviceBody = document.getElementById('service_body');
-  id = (Math.floor(Math.random() * 99999) + Math.floor(Math.random() * 10)).toString(16)  
+  id = (Math.floor(Math.random() * 99999) + Math.floor(Math.random() * 10)).toString(16)
 
-  if (elType == 'Texto Linha'){      
+  if (elType == 'Texto Linha') {
     serviceIcon = buttonH = document.getElementById('serviceIcon').childNodes[0]
     serviceText = document.getElementById('inlineFormInput').value
 
-    dic = {type: "SimpleText", value: serviceText, icon: serviceIcon.classList.value, id: id}
+    dic = {
+      type: "SimpleText",
+      value: serviceText,
+      icon: serviceIcon.classList.value,
+      id: id
+    }
 
     lineText = '\
-      <div class="input-group mb-3 col-11" id="el_'+id +'">\
+      <div class="input-group mb-3 col-11" id="el_' + id + '">\
         <div class="input-group-prepend">\
-            <span class="input-group-text">' + serviceIcon.outerHTML +'</span>\
+            <span class="input-group-text">' + serviceIcon.outerHTML + '</span>\
         </div>\
-        <input name="service_name" type="text" class="form-control" placeholder="'+ serviceText +'">\
+        <input name="service_name" type="text" class="form-control" placeholder="' + serviceText + '">\
       </div>\
-      <div class="col-1" id="x_'+id +'">\
-      <button onclick="removeEl(\''+id +'\')" type="button" class="btn btn-secondary btn-block"><i class="far fa-window-close"></i></button>\
+      <div class="col-1" id="x_' + id + '">\
+      <button onclick="removeEl(\'' + id + '\')" type="button" class="btn btn-secondary btn-block"><i class="far fa-window-close"></i></button>\
       </div>\
     ';
 
     serviceBody.innerHTML += lineText;
-
-    serviceList.push(dic)
+    stringd = JSON.stringify(dic)
+    serviceList.push(stringd)
   }
 
-  if(textIn=='' || textIn=='<p><br></p>'){
-    textIn ='\
+  if (textIn == '' || textIn == '<p><br></p>') {
+    textIn = '\
     <h5>Observação:</h5>\
     <p>Este campo poderá ser utilizado para inserir textos de observação ao inserir o serviço no cliente.</p>\
     ';
   }
 
-  if (elType == 'Texto Multilinha (fixo)'){
-    dic = {type: "MultiText", value: textIn, icon: "None", id: id}
+  if (elType == 'Texto Multilinha (fixo)') {
+    dic = {
+      type: "MultiText",
+      value: textIn,
+      icon: "None",
+      id: id
+    }
     serviceText = '\
-    <div class="col-12" id="el_'+id +'">\
+    <div class="col-12" id="el_' + id + '">\
       <div class="callout callout-info">\
-      <a onclick="removeEl(\''+id +'\')"><i class="far fa-window-close float-right"></i></a>\
-      ' +textIn + '\
+      <a onclick="removeEl(\'' + id + '\')"><i class="far fa-window-close float-right"></i></a>\
+      ' + textIn + '\
       </div>\
     <\div>'
 
     serviceBody.innerHTML += serviceText;
-    serviceList.push(dic)
+    stringd = JSON.stringify(dic)
+    serviceList.push(stringd)
   }
 
 }
 
 // Função de deleção dos elemntos:
-function removeEl(id){
-  el = document.getElementById('el_'+id);
-  xx = document.getElementById('x_'+id);
-  if(el!=null){
+function removeEl(id) {
+  el = document.getElementById('el_' + id);
+  xx = document.getElementById('x_' + id);
+  if (el != null) {
     el.remove();
   }
-  if(xx!=null){
+  if (xx != null) {
     xx.remove();
-  }  
-  serviceList = serviceList.filter(function( obj ) {
+  }
+  serviceList = serviceList.filter(function (obj) {
     return obj.id !== id;
   });
 }
@@ -114,16 +118,16 @@ function MultiStart() {
 }
 
 //Pegar conteúdo:
-function getCont(){
+function getCont() {
   cont = $('#multiText').summernote('code');
   serviceElement(cont);
 }
 
 //Limpa o construct:
-function clearConstruct(){
+function clearConstruct() {
   $('#multiText').summernote('destroy');
   x = document.getElementById('construct')
-  while(x.childNodes.length>0){
+  while (x.childNodes.length > 0) {
     x.removeChild(x.lastChild);
   }
   buttonContent = '\
@@ -143,9 +147,9 @@ function clearConstruct(){
 
 //Elimina o multiText: $('#multiText').summernote('destroy');
 
-function constructLinha(buttonId, text){
+function constructLinha(buttonId, text) {
   clearConstruct();
-  replaceButtonText(buttonId, text);  
+  replaceButtonText(buttonId, text);
   construct = document.getElementById('construct');
   prep = '\
   <div class="col-1 mb-3">\
@@ -163,9 +167,9 @@ function constructLinha(buttonId, text){
 
 }
 
-function constructMulti(buttonId, text){
+function constructMulti(buttonId, text) {
   clearConstruct();
-  replaceButtonText(buttonId, text);  
+  replaceButtonText(buttonId, text);
   construct = document.getElementById('construct');
   prep = '\
   <div class="col-12">\
@@ -186,45 +190,24 @@ function constructMulti(buttonId, text){
  */
 
 
-$("#friend-form").submit(function (e) {
-  // preventing from page reload and default actions
-  e.preventDefault();
-  // serialize the data for sending the form data.
-  var serializedData = JSON.stringify(serviceList)
-  // make POST ajax call
+
+$(document).on('submit', '#friend-form',function(e){
+  
   $.ajax({
-      type: 'POST',
-      url: "{% url 'services_create' %}",
-      data: serializedData,
-      success: function (response) {
-        console.log(JSON.parse(response["instance"]))
-          // on successfull creating object
-          // 1. clear the form.
-          // $("#friend-form").trigger('reset');
-          // // 2. focus to nickname input 
-          // $("#id_nick_name").focus();
-
-          // display the newly friend to table.
-          // var instance = JSON.parse(response["instance"]);
-          // var fields = instance[0]["fields"];
-          // $("#my_friends tbody").prepend(
-          //     `<tr>
-          //     <td>${fields["nick_name"]||""}</td>
-          //     <td>${fields["first_name"]||""}</td>
-          //     <td>${fields["last_name"]||""}</td>
-          //     <td>${fields["likes"]||""}</td>
-          //     <td>${fields["dob"]||""}</td>
-          //     <td>${fields["lives_in"]||""}</td>
-          //     </tr>`
-          // )
+      type:'POST',
+      url:e.currentTarget.action,
+      data:{
+          title:'Agora vai',
+          description: serviceList,
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+          action: 'post'
       },
-      error: function (response) {
-          // alert the error if any error occured
-          console.log(JSON.parse(response["instance"]))
-          alert(response["responseJSON"]["error"]);
-      }
-  })
-})
-
-
-
+      success:function(json){
+          console.log(json)
+          console.log('Deu certo')
+      },
+      error : function(xhr,errmsg,err) {
+      console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+  }
+  });
+});

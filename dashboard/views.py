@@ -16,7 +16,7 @@ import datetime
 # class DricaPageView(TemplateView):
 #     template_name = 'dri.html'
 
-from django.views.decorators.csrf import ensure_csrf_cookie
+import ast
 import json
 from django.http import JsonResponse
 
@@ -668,7 +668,7 @@ def backupDelivery(request, client_id, client_cat, user_source, user_id):
 
     return render(request, 'client_backup_delivery.html', context)
 
-@ensure_csrf_cookie
+
 def servicesCreate(request):
 
     assetscss = ('dist/css/select-new.css,'
@@ -678,18 +678,35 @@ def servicesCreate(request):
                 )
 
     # request should be ajax and method should be POST.
-    if request.is_ajax and request.method == "POST":
-        print(request.POST)
-        print(request.is_ajax)
+    if request.POST.get('action') == 'post':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        print("Chegou aqui:")
+        # print(len(description))
+        print(type(description))
+        print("inteira: ", description)
+        key2 = request.POST.getlist("description[]")
+        print(len(key2))
+        print(type(key2))
+        print("lista: ", key2)
+        dictList =[]
+        for i in range(len(key2)):
+            print(json.loads(key2[i]))
+            dictList.append(json.loads(key2[i]))
+        
+        print("dictList: ",dictList)
 
-        return JsonResponse({"instance": "Testando"}, status=200)
+        print(request.body)
 
+        
+        return JsonResponse({"agora":"vai"})
 
-    context = {
-    'menu': mainMenu(),
-    'pagetitle': 'Criar modelo de serviço',
-    'assetscss': assetscss,
-    'assetsjs': assetsjs
-    }
+    else:
+        context = {
+        'menu': mainMenu(),
+        'pagetitle': 'Criar modelo de serviço',
+        'assetscss': assetscss,
+        'assetsjs': assetsjs
+        }
 
-    return render(request, 'services_create.html', context)
+        return render(request, 'services_create.html', context)
