@@ -27,7 +27,7 @@
             </div>
             <input name="client_category_name" type="text" class="form-control" placeholder="Nome da categoria">
          </div>
-         <div class="input-group mb-1">
+         {% comment %} <div class="input-group mb-1">
             <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-image"></i></span>
             </div>
@@ -35,8 +35,17 @@
          </div>
          <div mb-3>
             <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank">Escolha aqui seu ícone</a>
+         </div> {% endcomment %}
+
+         <div class="col-3 mb-3" style="padding:0;">    
+            <button name="client_category_icon" id="serviceIcon" class="btn btn-primary btn-block iconpicker dropdown-toggle" data-icon="fas fa-home" role="iconpicker" enabled="">
+               <i class="fas fa-home"></i>
+               <input type="hidden" value="fas fa-home">
+               <span class="caret"></span>
+            </button>  
          </div>
-         <div class="col-4 offset-8">
+
+         <div class="col-4 offset-8" style="padding:0;">
             <button type="submit" class="btn btn-primary btn-block">Salvar</button>
          </div>
       </form>
